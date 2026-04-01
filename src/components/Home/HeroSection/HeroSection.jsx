@@ -7,13 +7,19 @@ import HeroMarquee from './HeroMarquee';
 
 export default function HeroSection() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [dropProgress, setDropProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       // The section is 500vh tall, so there are exactly 4 viewports of scroll distance
-      const maxScroll = window.innerHeight * 4; 
+      const vh = window.innerHeight;
+      const maxScroll = vh * 4; 
       const progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
       setScrollProgress(progress);
+
+      // Vertical Drop Progress (When marquee is done, before HeroDetails)
+      const drop = Math.min(Math.max((window.scrollY - maxScroll) / vh, 0), 1);
+      setDropProgress(drop);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -34,14 +40,6 @@ export default function HeroSection() {
   const marqueeProgress = Math.max(0, (scrollProgress - 0.3) / 0.7);
   // Moves from 100vw (off screen right) exactly to -100% of its OWN width + 100vw, parking the final word perfectly on-screen.
   const marqueeTranslate = `calc(100vw - ${marqueeProgress * 100}%)`;
-
-  // 4. Vertical Drop Progress (When marquee is done, before HeroDetails)
-  // We use scrollY directly to check if we are beyond 4vh (max marquee scroll)
-  const dropProgress = (() => {
-    const threshold = window.innerHeight * 4;
-    const distance = window.innerHeight; // 1vh for the drop
-    return Math.min(Math.max((window.scrollY - threshold) / distance, 0), 1);
-  })();
 
   return (
     <section className="relative w-full h-[500vh] bg-black">

@@ -35,13 +35,21 @@ export default function ServicesList() {
     { bold: "BRANDING &", light: "IDENTITY", image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=600" },
   ];
 
-  // Animation values
+  // Smooth Interpolation Logic
+  // Transition background from 0.05 to 0.15 of scrollProgress
+  const colorFactor = Math.min(Math.max((scrollProgress - 0.05) / 0.1, 0), 1);
+  const bgColor = `rgb(${colorFactor * 255}, ${colorFactor * 255}, ${colorFactor * 255})`;
+  // Text color from white (255,255,255) to nearly black (17,17,17)
+  const textGray = 255 - (colorFactor * (255 - 17));
+  const textColor = `rgb(${textGray}, ${textGray}, ${textGray})`;
+
   const listOpacity = Math.min(Math.max((scrollProgress - 0.2) / 0.3, 0), 1);
 
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full h-[250vh] bg-white text-[#111111]"
+      className="relative w-full h-[250vh]"
+      style={{ backgroundColor: bgColor, color: textColor }}
     >
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <Container>
@@ -50,15 +58,15 @@ export default function ServicesList() {
             {/* Horizontal Split Line: "We [Gap] make" */}
             <div className="relative w-full flex items-center justify-center mb-12">
               <h2 
-                className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter z-40 whitespace-nowrap pointer-events-none text-black transition-transform duration-100 ease-out"
-                style={{ transform: `translateX(-${scrollProgress * 75}vw)` }}
+                className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter z-40 whitespace-nowrap pointer-events-none transition-transform duration-100 ease-out"
+                style={{ transform: `translateX(-${scrollProgress * 75}vw)`, color: textColor }}
               >
                 We
               </h2>
               
               <h2 
-                className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter z-40 whitespace-nowrap ml-4 pointer-events-none text-black transition-transform duration-100 ease-out"
-                style={{ transform: `translateX(${scrollProgress * 75}vw)` }}
+                className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter z-40 whitespace-nowrap ml-4 pointer-events-none transition-transform duration-100 ease-out"
+                style={{ transform: `translateX(${scrollProgress * 75}vw)`, color: textColor }}
               >
                 make
               </h2>
