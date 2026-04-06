@@ -53,17 +53,48 @@ export default function ProcessSection() {
     };
   }, []);
 
-  const items = [
-    { id: '01', title: 'Discovery', desc: 'Understanding your unique business needs, project goals, and target audience to build a solid foundation.' },
-    { id: '02', title: 'Planning', desc: 'Creating an actionable roadmap and strategic plan that aligns with your key objectives and timelines.' },
-    { id: '03', title: 'Ideation', desc: 'Brainstorming creative concepts and innovative solutions that set your brand apart in a crowded market.' },
-    { id: '04', title: 'Design', desc: 'Crafting premium, user-centric visual experiences that seamlessly blend high-end aesthetics with functionality.' },
-    { id: '05', title: 'Development', desc: 'Transforming approved designs into high-performance, scalable products using cutting-edge technologies.' },
-    { id: '06', title: 'Testing', desc: 'Comprehensive quality assurance to ensure flawless performance across all environments and user devices.' },
-    { id: '07', title: 'Launch', desc: 'Deploying your solution with meticulous care to ensure a smooth, successful transition into the live market.' },
-    { id: '08', title: 'Optimization', desc: 'Ongoing performance monitoring and data-driven updates to maximize long-term impact and growth.' },
-  ];
-
+const items = [
+  {
+    id: '01',
+    title: 'Discovery',
+    desc: 'We begin by understanding your business, goals, target audience, and market landscape to build a strong foundation.'
+  },
+  {
+    id: '02',
+    title: 'Planning',
+    desc: 'Based on insights, we create a strategic roadmap that aligns your brand vision with clear objectives.'
+  },
+  {
+    id: '03',
+    title: 'Ideation',
+    desc: 'Our team brainstorms creative concepts and ideas that reflect your brand identity and differentiate you from competitors.'
+  },
+  {
+    id: '04',
+    title: 'Design',
+    desc: 'We transform ideas into visually compelling designs, crafting a unique and memorable brand identity.'
+  },
+  {
+    id: '05',
+    title: 'Concept Development',
+    desc: 'We refine selected ideas into strong concepts, ensuring they align with your brand message and goals.'
+  },
+  {
+    id: '06',
+    title: 'Design Execution',
+    desc: 'We transform concepts into visually compelling designs, creating a distinctive and memorable brand identity.'
+  },
+  {
+    id: '07',
+    title: 'Development',
+    desc: 'We bring designs to life by developing assets and ensuring seamless functionality across all platforms.'
+  },
+  {
+    id: '08',
+    title: 'Delivery & Optimization',
+    desc: 'Finally, we deliver polished brand assets and continuously optimize for consistency, performance, and growth.'
+  }
+];
   const horizontalOffset = 15 - (scrollProgress * trackMultiplier);
 
   // Smooth Interpolation Logic (White to Black)

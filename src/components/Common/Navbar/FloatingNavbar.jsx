@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import Container from '../Container/Container';
 import MenuOverlay from './MenuOverlay';
 
@@ -11,11 +12,19 @@ export default function FloatingNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', href: '/about' },
+    { name: 'About', href: '/about-us' },
     { name: 'Services', href: '/services' },
     { name: 'Works', href: '/projects' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const pathname = usePathname();
+
+  // Helper to determine if a link is active
+  const isActive = (href) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +67,10 @@ export default function FloatingNavbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-black/80 hover:text-black font-medium text-base transition-colors duration-200"
+                className={`transition-colors duration-200 font-medium text-base ${isActive(link.href)
+                  ? 'text-[#2bc5ee]'
+                  : 'text-black/80 hover:text-black'
+                  }`}
               >
                 {link.name}
               </Link>

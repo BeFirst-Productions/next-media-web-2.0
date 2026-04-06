@@ -13,7 +13,7 @@ export default function HeroSection() {
     const handleScroll = () => {
       // The section is 500vh tall, so there are exactly 4 viewports of scroll distance
       const vh = window.innerHeight;
-      const maxScroll = vh * 4; 
+      const maxScroll = vh * 4;
       const progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
       setScrollProgress(progress);
 
@@ -29,7 +29,7 @@ export default function HeroSection() {
 
   // 1. Text moves out of the way during the first 20% of the total scroll
   const textProgress = Math.min(scrollProgress / 0.2, 1);
-  const translateYAmount = textProgress * 300; 
+  const translateYAmount = textProgress * 300;
 
   // 2. Video scales out continuously up to 30% of the scroll until fully opened
   const videoProgress = Math.min(scrollProgress / 0.3, 1);
@@ -56,7 +56,7 @@ export default function HeroSection() {
             </h2>
 
             {/* Main Typography Block */}
-            <div 
+            <div
               className="relative inline-flex flex-col items-center md:items-start text-left z-20 transition-opacity duration-75"
               style={{ opacity: heroOpacity }}
             >
@@ -69,9 +69,9 @@ export default function HeroSection() {
                 {/* Top Text Line */}
                 <div className="flex items-center space-x-2 md:space-x-4 text-[26px] sm:text-[40px] md:text-[50px] lg:text-[60px] xl:text-[76px] leading-[1.1] mix-blend-difference">
                   <span className="text-white whitespace-nowrap">
-                    <span className="font-bold">Dorem</span>{' '}
-                    <span className="font-light">ipsum dolor</span>{' '}
-                    <span className="font-bold">sit amet</span>
+                    <span className="font-bold">Ready to </span>{' '}
+                    <span className="font-light"> grow your</span>{' '}
+                    <span className="font-bold"> brand?</span>
                   </span>
                   <svg
                     className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#2bc5ee] shrink-0"
@@ -100,18 +100,17 @@ export default function HeroSection() {
                 .animate-breathe-line {
                   animation: breatheLine 4s ease-in-out infinite;
                 }
-                @keyframes waveMotion {
-                  0%, 100% { transform: translateY(0); }
-                  50% { transform: translateY(-10px); }
+                @keyframes waveDraw {
+                  0% { stroke-dashoffset: 400; }
+                  45%, 55% { stroke-dashoffset: 0; }
+                  100% { stroke-dashoffset: -400; }
                 }
-                @keyframes liquidRipple {
-                  0%, 100% { transform: translateY(0) scaleY(1); }
-                  33% { transform: translateY(-8px) scaleY(1.05); }
-                  66% { transform: translateY(4px) scaleY(0.95); }
+                .animate-wave-1, .animate-wave-2, .animate-wave-3 { 
+                  stroke-dasharray: 400; 
                 }
-                .animate-wave-1 { animation: liquidRipple 3s ease-in-out infinite; }
-                .animate-wave-2 { animation: liquidRipple 3s ease-in-out infinite 0.4s; }
-                .animate-wave-3 { animation: liquidRipple 3s ease-in-out infinite 0.8s; }
+                .animate-wave-1 { animation: waveDraw 5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+                .animate-wave-2 { animation: waveDraw 5s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.4s; }
+                .animate-wave-3 { animation: waveDraw 5s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.8s; }
               `}</style>
                   {/* Left Half (Animates continuously from the Left) */}
                   <div className="h-full w-1/2 bg-[#2bc5ee] origin-left animate-breathe-line"></div>
@@ -139,8 +138,8 @@ export default function HeroSection() {
                     <path d="M3 5l9 14 9-14H3z" />
                   </svg>
                   <span className="text-white whitespace-nowrap">
-                    <span className="font-bold">ipsum dolor</span>{' '}
-                    <span className="font-light">sit amet,</span>
+                    <span className="font-bold">We build</span>{' '}
+                    <span className="font-light">brand identities.</span>
                   </span>
                 </div>
               </div>
@@ -153,7 +152,7 @@ export default function HeroSection() {
               style={{
                 clipPath: `inset(${50 - (50 * videoProgress)}% 0 ${50 - (50 * videoProgress)}% 0 round 32px)`,
                 opacity: scrollProgress > 0.01 ? heroOpacity : 0,
-                zIndex: videoProgress > 0.7 ? 30 : 10 
+                zIndex: videoProgress > 0.7 ? 30 : 10
               }}
             >
               <div className="absolute inset-0 flex items-center justify-center text-[#2bc5ee]/50 font-light tracking-widest text-sm md:text-base border border-[#2bc5ee]/20 m-4 rounded-xl md:rounded-2xl border-dashed">
@@ -170,9 +169,9 @@ export default function HeroSection() {
             </div>
 
             {/* NEW: Giant Horizontal Marquee Text overlays the expanded video */}
-            <HeroMarquee 
-              marqueeTranslate={marqueeTranslate} 
-              marqueeProgress={marqueeProgress} 
+            <HeroMarquee
+              marqueeTranslate={marqueeTranslate}
+              marqueeProgress={marqueeProgress}
               dropProgress={dropProgress}
             />
 

@@ -7,28 +7,28 @@ import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 const faqs = [
   {
     id: 1,
-    question: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    question: "What services do you offer?",
+    answer: "We provide branding, design, and digital solutions tailored to help your business grow and stand out."
   },
   {
     id: 2,
-    question: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    question: "How long does a branding project take?",
+    answer: "Timelines vary based on scope, but most projects are completed within a few weeks."
   },
   {
     id: 3,
-    question: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    question: "What makes Next Media Dubai stand out from other creative agencies?",
+    answer: "Next Media Dubai stands out through its commitment to genuine creativity, customized solutions, and a team of highly skilled professionals. We don’t believe in one-size-fits-all approaches. Every project is tailored to meet the unique needs and goals of each client."
   },
   {
     id: 4,
-    question: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    question: "Do you offer customized solutions?",
+    answer: "Yes, all our services are tailored to your business goals and target audience."
   },
   {
     id: 5,
-    question: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    question: "Can you help improve an existing brand?",
+    answer: "Absolutely! We can refresh, redesign, or completely reposition your brand."
   }
 ];
 
@@ -58,8 +58,8 @@ export default function FaqSection() {
         {/* Header Text */}
         <div className="mb-20 max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-light leading-[1.1] tracking-tight text-white">
-            Everything you need <br />
-            <span className="">to know about us.</span>
+            Quick answers to help you <br />
+            <span className="">understand how we create and grow brands.</span>
           </h2>
         </div>
 

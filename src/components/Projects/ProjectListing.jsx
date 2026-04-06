@@ -32,7 +32,7 @@ export default function ProjectListing() {
           <h1 className={`text-4xl md:text-5xl tracking-tighter uppercase leading-none transition-colors duration-1000 ${
             isWhite ? 'text-black' : 'text-white'
           }`}>
-            Gorem ipsum <span className="text-[#2bc5ee]">doloretiam</span> sit amet
+            Trusted By <span className="text-[#2bc5ee]">Leading Brands</span>
             <span className="ml-4 inline-flex items-center">
               <svg 
                 width="27" 
