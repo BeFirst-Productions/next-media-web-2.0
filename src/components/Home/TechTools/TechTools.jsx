@@ -117,27 +117,32 @@ class Physics2D {
         }
       }
 
-      // Bowl floor wall (matches visual single wave)
+      // Bowl floor — recalculated for shallower wave:
+      //   wave div   = bottom 32 % of canvas height H
+      //   SVG path   = M0,42  C420,96  1020,96  1440,42  (viewBox 0 0 1440 100)
+      //   Bezier centre y ≈ 80  →  canvas_y = 0.936 H  →  world_y = -0.872 maxY
+      //   Sides y = 42          →  canvas_y = 0.814 H  →  world_y = -0.628 maxY
+      //   bowlDepth = 0.872 − 0.628 = 0.244 maxY  (gentle shallow bowl)
       const nx = Math.max(-1, Math.min(1, I.x / cfg.maxX));
-      const bowlBase = -cfg.maxY + (cfg.maxY * 0.12);
-      const bowlDepth = cfg.maxY * 0.35;
+      const bowlBase  = -(cfg.maxY * 0.872); // world-Y of wave top at centre
+      const bowlDepth =   cfg.maxY * 0.244;  // shallow rise centre → sides
       const floorY = bowlBase + (nx * nx) * bowlDepth;
 
       if (I.y - ri < floorY) {
         I.y = floorY + ri;
-        
+
         // Bounce on curved normal
         const slope = 2 * nx * (bowlDepth / cfg.maxX);
         const dn = Math.sqrt(slope * slope + 1);
         const normX = -slope / dn;
         const normY = 1 / dn;
-        
+
         const dot = V.x * normX + V.y * normY;
         if (dot < 0) {
           V.x -= 1.6 * dot * normX;
           V.y -= 1.6 * dot * normY;
         }
-        
+
         V.scale(cfg.wallBounce);
         V.x *= 0.95;
         rotVel[i] *= 0.90;
@@ -244,7 +249,7 @@ function drawIconBox(ctx, icon, cx, cy, sz, angle) {
 export default function TechTools() {
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
-  const physRef = useRef(null);   // { physics, animId, icons, WORLD_W }
+  const physRef = useRef(null);  
   const started = useRef(false);
 
   // ── Start / restart the simulation ───────────────────────────────────────
@@ -270,15 +275,15 @@ export default function TechTools() {
 
     const cfg = {
       count: COUNT,
-      minSize: 0.60,
-      maxSize: 0.80,
-      gravity: 0.22,         // Increased gravity for a slightly faster fall
+      minSize: 0.38,
+      maxSize: 0.52,
+      gravity: 0.22,
       friction: 0.9970,
-      wallBounce: 0.72,      // Medium-soft landing
-      maxVel: 0.18,          // Higher terminal velocity to allow quicker drop
+      wallBounce: 0.72,
+      maxVel: 0.18,
       maxX,
       maxY,
-      interactR: 2.6,
+      interactR: 2.0,
     };
 
     const physics = new Physics2D(cfg);
@@ -393,65 +398,84 @@ export default function TechTools() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full min-h-screen bg-white flex flex-col justify-center overflow-hidden pt-12 md:pt-20"
-    >
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Container>
-        <div className="flex flex-col items-center text-center mb-4 md:mb-6">
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 border border-[#0099CC]/40
-                       rounded-full px-4 py-1.5 mb-4 text-[#0099CC] text-sm
-                       font-medium tracking-wide bg-white/80 shadow-sm"
-          >
-            <span className="text-base">★</span>
-            Technology &amp; Tools
-          </div>
-
-          {/* Subtitle */}
-          <p className="text-[#555] text-sm md:text-base leading-relaxed max-w-sm md:max-w-md">
-            Gorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
-            Etiam eu turpis molestie, dictum est a,
-          </p>
-        </div>
-      </Container>
-
-      {/* ── Physics canvas area ─────────────────────────────────────────── */}
-      <div
-        className="relative w-full flex-1"
-        style={{ minHeight: '30vh' }}
+    <>
+      {/*
+       * Canvas now covers the FULL 100vh section.
+       * Icons can travel anywhere in the section without being clipped.
+       * z-stack: canvas(z-10) → wave(z-20) → header text(z-30)
+       */}
+      <section
+        ref={sectionRef}
+        className="relative w-full bg-white overflow-hidden"
+        style={{ height: '100vh' }}
       >
-        {/* Canvas — sits ABOVE the wave z-index so icons visually drop and rest ON it */}
+        {/* ── Full-section canvas — spans entire 100vh ─────────────────── */}
+        {/* Removing the inner physics div means icons are never clipped    */}
+        {/* by a smaller container when they bounce toward the header area. */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full z-20"
+          className="absolute inset-0 w-full h-full z-10"
           style={{ display: 'block', touchAction: 'none', userSelect: 'none' }}
         />
 
-        {/* ── Blue wave overlay ─────── */}
-        <div className="absolute bottom-0 left-0 w-full pointer-events-none z-10">
+        {/* ── Header overlay — sits above canvas ───────────────────────── */}
+        {/* z-30 keeps text readable; icons slide under/over it naturally.  */}
+        <div
+          className="relative z-30 flex flex-col items-center text-center"
+          style={{ paddingTop: 'clamp(32px, 5vw, 60px)', paddingBottom: '8px' }}
+        >
+          <Container>
+            <div className="flex flex-col items-center text-center">
+              {/* Badge */}
+              <div
+                className="inline-flex items-center gap-2 border border-[#0099CC]/40
+                           rounded-full px-4 py-1.5 mb-3 text-[#0099CC] text-sm
+                           font-medium tracking-wide bg-white/80 shadow-sm"
+              >
+                <span className="text-base">★</span>
+                Technology &amp; Tools
+              </div>
+
+              {/* Subtitle */}
+              <p className="text-[#555] text-sm md:text-base leading-relaxed max-w-sm md:max-w-md">
+                Gorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+                Etiam eu turpis molestie, dictum est a,
+              </p>
+            </div>
+          </Container>
+        </div>
+
+        {/* ── Blue bowl wave — bottom 32% of section ───────────────────── */}
+        {/* z-20: above canvas so wave renders over icons at the boundary;  */}
+        {/* icons that settle IN the bowl appear to sit on its surface.     */}
+        <div
+          className="absolute bottom-0 left-0 w-full pointer-events-none z-20"
+          style={{ height: '32%' }}
+        >
           <svg
-            viewBox="0 0 1440 200"
+            viewBox="0 0 1440 100"
             preserveAspectRatio="none"
-            className="w-full"
-            style={{ height: 'max(15vh, 120px)', display: 'block' }}
+            style={{ width: '100%', height: '100%', display: 'block' }}
           >
-            <defs>
-              <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#25A0E8" />
-                <stop offset="100%" stopColor="#1389D9" />
-              </linearGradient>
-            </defs>
-            {/* A single sweeping symmetrical bowl curve */}
             <path
-              d="M0,80 C480,250 960,250 1440,80 L1440,200 L0,200 Z"
-              fill="url(#waveGrad)"
+              d="M0,42 C420,96 1020,96 1440,42 L1440,100 L0,100 Z"
+              fill="#2AABEE"
             />
           </svg>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ── Blue → white gradient blend ───────────────────────────────────── */}
+      {/* Sits directly below the section so the blue fades cleanly to white  */}
+      <div
+        style={{
+          width: '100%',
+          height: '110px',
+          background: 'linear-gradient(to bottom, #2AABEE 0%, #ffffff 100%)',
+          marginTop: '-1px',          /* eliminate any hairline gap */
+          display: 'block',
+        }}
+      />
+    </>
   );
 }

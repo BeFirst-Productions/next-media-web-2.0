@@ -1,145 +1,187 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+
+const CITY_IMG_SRC = '/images/success-image-scaled.webp';
+
+// ─── Single wispy cloud puff (used in multiple animated layers) ──────────────
+function CloudBand({ opacity = 1 }) {
+  return (
+    <svg
+      viewBox="0 0 1440 180"
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Dense base */}
+      <ellipse cx="80"   cy="155" rx="90"  ry="45" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="240"  cy="145" rx="135" ry="58" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="450"  cy="138" rx="165" ry="68" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="700"  cy="134" rx="180" ry="72" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="960"  cy="138" rx="170" ry="68" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="1190" cy="144" rx="148" ry="60" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="1370" cy="153" rx="110" ry="50" fill={`rgba(255,255,255,${opacity})`} />
+      {/* Upper bumps */}
+      <ellipse cx="190"  cy="108" rx="78"  ry="54" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="390"  cy="94"  rx="98"  ry="62" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="600"  cy="86"  rx="115" ry="68" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="810"  cy="82"  rx="120" ry="72" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="1020" cy="88"  rx="110" ry="66" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="1210" cy="100" rx="95"  ry="58" fill={`rgba(255,255,255,${opacity})`} />
+      {/* Wispy peaks */}
+      <ellipse cx="520"  cy="54"  rx="72"  ry="48" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="700"  cy="44"  rx="82"  ry="54" fill={`rgba(255,255,255,${opacity})`} />
+      <ellipse cx="890"  cy="50"  rx="76"  ry="50" fill={`rgba(255,255,255,${opacity})`} />
+    </svg>
+  );
+}
 
 export default function CreateSuccess() {
   const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [offsetY, setOffsetY] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Reveal Observer
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setIsVisible(true);
-      }
-    }, { threshold: 0.15 });
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    // Smooth Parallax Scroll Effect
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const { top } = sectionRef.current.getBoundingClientRect();
-        // Calculate offset based on scroll position relative to viewport
-        setOffsetY((window.innerHeight - top) * 0.15);
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true); },
+      { threshold: 0.06 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="relative w-full min-h-[90vh] md:min-h-screen bg-[#ffffff] flex flex-col justify-end items-center overflow-hidden"
+      style={{
+        position: 'relative',
+        width: '100%',
+        minHeight: '80vh',
+        background: '#ffffff',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}
     >
-      {/* Top soft blue gradient glow matching the wave from above section */}
-      <div className="absolute top-0 left-0 w-full h-[10vh] md:h-[20vh] bg-linear-to-b from-[#1E86CA]/20 via-[#1E86CA]/5 to-transparent pointer-events-none z-40" />
+      {/* ── Keyframes ────────────────────────────────────────────────────────── */}
+      <style>{`
+        @keyframes cs-drift-r { from { transform: translateX(-40%); } to { transform: translateX(40%); } }
+        @keyframes cs-drift-l { from { transform: translateX(30%);  } to { transform: translateX(-50%); } }
+        @keyframes cs-breathe {
+          0%,100% { transform: translateY(0px) scale(1); }
+          50%      { transform: translateY(-10px) scale(1.005); }
+        }
+        @keyframes cs-fade-up {
+          from { opacity: 0; transform: translateY(40px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .cs-breathe { animation: cs-breathe 12s ease-in-out infinite; }
+        .cs-c1 { animation: cs-drift-r 32s linear infinite; }
+        .cs-c2 { animation: cs-drift-l 44s linear infinite; animation-delay: -12s; }
+        .cs-c3 { animation: cs-drift-r 26s linear infinite; animation-delay: -8s;  }
+        .cs-c4 { animation: cs-drift-l 52s linear infinite; animation-delay: -24s; }
+      `}</style>
 
-      {/* Massive Background Text Layer */}
-      <div 
-        className={`absolute inset-0 flex flex-col justify-center items-center pointer-events-none z-10
-          transition-all duration-1000 delay-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]
-          ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
+      {/* ── Top bleed: the blue from TechTools fades into white here ─────────── */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0,
+        height: '12vh',
+        background: 'linear-gradient(to bottom, rgba(42,171,238,0.08) 0%, transparent 100%)',
+        pointerEvents: 'none',
+        zIndex: 1,
+      }} />
+
+      {/* ── City skyline ─────────────────────────────────────────────────────── */}
+      <div
         style={{
-          transform: isVisible ? `translateY(${-offsetY * 0.15 - 50}px) scale(1)` : undefined,
+          position: 'relative',
+          width: '100%',
+          // maxWidth: '1360px',
+          zIndex: 10,
+          /**
+           * Scroll-triggered reveal: slides up + fades in once the section
+           * enters the viewport (IntersectionObserver sets `visible`).
+           */
+          transform: visible ? 'translateY(0)' : 'translateY(52px)',
+          opacity:   visible ? 1 : 0,
+          transition: 'opacity 1.3s ease, transform 1.3s ease',
         }}
       >
-        <h1 className="text-center font-black uppercase text-[#E8E8E8] tracking-tighter leading-[0.85] text-[100px] md:text-[220px]">
-          Let&apos;s<br />Create<br />Success
-        </h1>
-      </div>
-
-      {/* The skyline image layer strictly scaled to intrinsic aspect ratio, pushed to the bottom */}
-      <div 
-        className={`relative w-full max-w-[1920px] mx-auto mt-auto pointer-events-none z-20
-          transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]
-          ${isVisible ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[0.96] translate-y-16 blur-xs'}`}
-        style={{
-          transform: isVisible ? `translateY(${-offsetY * 0.3}px) scale(1)` : undefined,
-        }}
-      >
-        <Image
-          src="/images/success-image-scaled.webp"
-          alt="Create Success Skyline"
-          width={1920}
-          height={800} /* General ultra-wide aspect ratio for a skyline */
-          className="w-full h-auto object-bottom"
-          style={{ animation: 'breathe 8s ease-in-out infinite alternate', transformOrigin: 'bottom center' }}
-          sizes="100vw"
-          priority
-        />
-      </div>
-
-      {/* Layered Seamless Scrolling Fog Animations */}
-      {isVisible && (
-        <div 
-          className="absolute inset-0 pointer-events-none z-30 overflow-hidden" 
-          style={{ maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)', WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)' }}
-        >
-          {/* Back Fog Layer (Slow floating) */}
-          <div className="absolute bottom-0 left-0 w-full h-full opacity-50"
-               style={{
-                 backgroundImage: 'radial-gradient(ellipse 800px 600px at 30% 90%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%), radial-gradient(ellipse 700px 500px at 80% 85%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%)',
-                 backgroundSize: '1600px 100%',
-                 backgroundRepeat: 'repeat-x',
-                 animation: 'panFogSlow 50s linear infinite, floatFog 12s ease-in-out infinite alternate',
-               }}
-          />
-
-          {/* Middle Fog Layer (Medium floating) */}
-          <div className="absolute bottom-[-10%] left-0 w-full h-[90%] opacity-70"
-               style={{
-                 backgroundImage: 'radial-gradient(ellipse 900px 400px at 50% 95%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%), radial-gradient(ellipse 600px 350px at 10% 85%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%)',
-                 backgroundSize: '1800px 100%',
-                 backgroundRepeat: 'repeat-x',
-                 animation: 'panFogMedium 35s linear infinite',
-               }}
-          />
-
-          {/* Front Fog Thick Layer (Fast rolling) */}
-          <div className="absolute bottom-[-20%] left-0 w-full h-[70%] opacity-100"
-               style={{
-                 backgroundImage: 'radial-gradient(ellipse 1000px 300px at 20% 90%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%), radial-gradient(ellipse 900px 350px at 70% 80%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%)',
-                 backgroundSize: '1400px 100%',
-                 backgroundRepeat: 'repeat-x',
-                 animation: 'panFogFast 20s linear infinite, floatFog 8s ease-in-out infinite alternate-reverse',
-               }}
+        {/* City image — NO horizontal mirror */}
+        <div className="cs-breathe">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={CITY_IMG_SRC}
+            alt="Dubai skyline rising above clouds"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
           />
         </div>
-      )}
 
-      <style jsx>{`
-        @keyframes breathe {
-          0% { transform: scale(1) translateY(0); }
-          100% { transform: scale(1.02) translateY(-1%); }
-        }
-        @keyframes panFogSlow {
-          0% { background-position-x: 0px; }
-          100% { background-position-x: 1600px; }
-        }
-        @keyframes panFogMedium {
-          0% { background-position-x: 0px; }
-          100% { background-position-x: 1800px; }
-        }
-        @keyframes panFogFast {
-          0% { background-position-x: 0px; }
-          100% { background-position-x: 1400px; }
-        }
-        @keyframes floatFog {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-30px); }
-        }
-      `}</style>
+        {/* ── Animated cloud layers over the lower portion of the image ──────── */}
+        {/*
+          4 layers at different depths, blur, speed and vertical position
+          give a convincing parallax fog that wraps the building bases.
+          The mask fades the cloud block into the image above seamlessly.
+        */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          height: '58%',
+          overflow: 'hidden',
+          pointerEvents: 'none',
+          zIndex: 5,
+          maskImage:
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 20%, black 52%)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%, black 52%)',
+        }}>
+          {/* Layer 1 — dense foreground, drifts right */}
+          <div className="cs-c1" style={{
+            position: 'absolute', bottom: '-4%', left: '-50%', width: '200%',
+            filter: 'blur(4px)',
+            willChange: 'transform',
+          }}>
+            <CloudBand opacity={1} />
+          </div>
+
+          {/* Layer 2 — mid depth, drifts left */}
+          <div className="cs-c2" style={{
+            position: 'absolute', bottom: '8%', left: '-60%', width: '210%',
+            filter: 'blur(9px)', opacity: 0.90,
+            willChange: 'transform',
+          }}>
+            <CloudBand opacity={1} />
+          </div>
+
+          {/* Layer 3 — slightly higher, faster right */}
+          <div className="cs-c3" style={{
+            position: 'absolute', bottom: '22%', left: '-70%', width: '220%',
+            filter: 'blur(16px)', opacity: 0.70,
+            willChange: 'transform',
+          }}>
+            <CloudBand opacity={0.9} />
+          </div>
+
+          {/* Layer 4 — high wispy tendrils, slow left */}
+          <div className="cs-c4" style={{
+            position: 'absolute', bottom: '36%', left: '-20%', width: '170%',
+            filter: 'blur(25px)', opacity: 0.45,
+            willChange: 'transform',
+          }}>
+            <CloudBand opacity={0.8} />
+          </div>
+        </div>
+
+        {/* Hard white fade at the very bottom of the image — merges into page */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0,
+          height: '22%',
+          background: 'linear-gradient(to bottom, transparent, #ffffff)',
+          zIndex: 10,
+          pointerEvents: 'none',
+        }} />
+      </div>
     </section>
   );
 }

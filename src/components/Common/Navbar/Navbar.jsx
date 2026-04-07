@@ -3,10 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import Container from '../Container/Container';
 import MenuOverlay from './MenuOverlay';
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -52,7 +55,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${isScrolled
+        className={`${isHome ? 'fixed top-0' : 'relative'} w-full z-40 transition-all duration-500 ${isScrolled
           ? '-translate-y-full opacity-0 pointer-events-none'
           : 'translate-y-0 opacity-100 bg-black py-6'
           }`}
@@ -61,7 +64,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center w-full">
             {/* Logo */}
             <Link href="/" className="group focus:outline-none flex items-center">
-              <div className="relative w-36 h-10 sm:w-44 sm:h-16  transition-transform duration-300 group-hover:scale-[1.02]">
+              <div className="relative w-36 h-10 sm:w-44 sm:h-16 md:w-52 md:h-20 lg:w-60 lg:h-24 transition-transform duration-300 group-hover:scale-[1.02]">
                 <Image
                   src="/logo.svg"
                   alt="Next Media Logo"
