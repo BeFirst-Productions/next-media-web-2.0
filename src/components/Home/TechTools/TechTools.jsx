@@ -325,23 +325,16 @@ export default function TechTools() {
       physics.interact = true;
     }
     function onLeave() { physics.interact = false; }
-    function onTouch(e) {
-      e.preventDefault();
-      if (e.touches.length) onMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
-    }
-    function onTouchEnd() { physics.interact = false; }
 
     canvas.addEventListener('pointermove', onMove);
     canvas.addEventListener('pointerleave', onLeave);
-    canvas.addEventListener('touchmove', onTouch, { passive: false });
-    canvas.addEventListener('touchend', onTouchEnd);
+    canvas.addEventListener('pointercancel', onLeave);
 
     physRef.current.cleanup = () => {
       ro.disconnect();
       canvas.removeEventListener('pointermove', onMove);
       canvas.removeEventListener('pointerleave', onLeave);
-      canvas.removeEventListener('touchmove', onTouch);
-      canvas.removeEventListener('touchend', onTouchEnd);
+      canvas.removeEventListener('pointercancel', onLeave);
     };
   }
 
@@ -389,7 +382,7 @@ export default function TechTools() {
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full z-10"
-          style={{ display: 'block', touchAction: 'none', userSelect: 'none' }}
+          style={{ display: 'block', userSelect: 'none' }}
         />
 
         {/* ── Header overlay — sits above canvas ───────────────────────── */}
