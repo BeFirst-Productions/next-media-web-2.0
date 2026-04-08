@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Container from '../../Common/Container/Container';
 import SectionBadge from '../../Common/SectionBadge/SectionBadge';
@@ -31,24 +31,92 @@ const testimonials = [
 
 export default function TestimonialSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
+  const sectionRef = useRef(null);
+  const mousePos = useRef({ x: 0, y: 0 });
+  const buttonPos = useRef({ x: 0, y: 0 });
+  const rafRef = useRef(null);
+  const [renderedPos, setRenderedPos] = useState({ x: 0, y: 0 });
+  
   const currentTestimonial = testimonials[currentIndex];
 
   useEffect(() => {
+    const updatePosition = () => {
+      const lerp = 0.15; // Smoothness factor
+      buttonPos.current.x += (mousePos.current.x - buttonPos.current.x) * lerp;
+      buttonPos.current.y += (mousePos.current.y - buttonPos.current.y) * lerp;
+      
+      setRenderedPos({ x: buttonPos.current.x, y: buttonPos.current.y });
+      rafRef.current = requestAnimationFrame(updatePosition);
+    };
+
+    rafRef.current = requestAnimationFrame(updatePosition);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 3000);
+      if (!isHovering) {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      }
+    }, 5000);
 
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, [currentIndex, isHovering]);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    mousePos.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  };
+
   const progress = ((currentIndex + 1) / testimonials.length) * 100;
 
   return (
-    <section className="relative w-full py-24 bg-black text-white overflow-hidden">
+    <section 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        setIsClicking(false);
+      }}
+      onMouseDown={() => setIsClicking(true)}
+      onMouseUp={() => setIsClicking(false)}
+      onClick={handleNext}
+      className={`relative w-full py-24 bg-black text-white overflow-hidden transition-all duration-300 ${isHovering ? 'cursor-none' : ''}`}
+    >
+      {/* Custom Button Cursor */}
+      <div 
+        className="fixed z-50 pointer-events-none flex items-center justify-center w-16 h-16 md:w-20 md:h-20"
+        style={{
+          left: renderedPos.x,
+          top: renderedPos.y,
+          position: 'absolute',
+          transform: `translate3d(-50%, -50%, 0)`,
+          willChange: 'left, top'
+        }}
+      >
+        <div 
+          className={`absolute inset-0 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 ease-out ${isHovering ? 'opacity-100' : 'opacity-0'} ${isClicking ? 'scale-[0.85]' : (isHovering ? 'scale-100' : 'scale-50')}`}
+        ></div>
+        <span 
+          className={`relative z-10 text-black font-bold tracking-widest text-[8px] md:text-[10px] uppercase transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}
+        >
+          Next
+        </span>
+      </div>
+
       <Container className="relative z-10">
         
         {/* Section Badge */}
@@ -91,7 +159,7 @@ export default function TestimonialSection() {
 
           {/* Testimonial Text */}
           <div className="min-h-[160px] md:min-h-[200px] mb-12">
-            <p className="text-xl md:text-2xl md:text-3xl 2xl:text-4xl font-normal leading-tight tracking-tight text-white/90 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <p className="text-xl md:text-2xl md:text-3xl 2xl:text-4xl font-normal leading-tight tracking-tight text-white/90 animate-in fade-in slide-in-from-bottom-4 duration-700 select-none">
               {currentTestimonial.text}
             </p>
           </div>
@@ -125,16 +193,11 @@ export default function TestimonialSection() {
               </div>
             </div>
 
-            {/* Next Button */}
-            <button 
-              onClick={handleNext}
-              className="group relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28"
-            >
-              <div className="absolute inset-0 bg-white rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"></div>
-              <span className="relative z-10 text-black font-bold tracking-widest text-xs uppercase">
-                Next
-              </span>
-            </button>
+            {/* Indicator instead of standard button */}
+            <div className="hidden md:flex items-center space-x-2 text-[#444] text-xs tracking-widest uppercase font-bold">
+               <span>Click to slide</span>
+               <div className="w-12 h-[1.5px] bg-[#00B3FF]/30"></div>
+            </div>
           </div>
 
           {/* Progress Bar */}

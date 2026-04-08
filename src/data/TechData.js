@@ -1,0 +1,22 @@
+export const IMAGE_URLS = [
+  '/images/technologies/adobe-illustrator-icon.svg',
+  '/images/technologies/adobe-indesign-icon.svg',
+  '/images/technologies/adobxd-icon.svg',
+  '/images/technologies/drive-icon.svg',
+  '/images/technologies/figma-icon.svg',
+  '/images/technologies/github-icon.svg',
+  '/images/technologies/linkedin-icon.svg',
+  '/images/technologies/meta-icon.svg',
+  '/images/technologies/next-icon.svg',
+  '/images/technologies/node-icon.svg',
+  '/images/technologies/photoshop-icon.svg',
+  '/images/technologies/premium-icon.svg',
+  '/images/technologies/react-icon.svg',
+  '/images/technologies/linkedin-icon.svg',
+  '/images/technologies/drive-icon.svg',
+  '/images/technologies/meta-icon.svg',
+  '/images/technologies/figma-icon.svg',
+  '/images/technologies/adobe-illustrator-icon.svg',
+  '/images/technologies/photoshop-icon.svg',
+
+];

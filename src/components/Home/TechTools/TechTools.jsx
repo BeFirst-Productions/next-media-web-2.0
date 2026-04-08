@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Container from '../../Common/Container/Container';
+import { IMAGE_URLS } from '@/data/TechData';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function randFloat(lo, hi) { return lo + Math.random() * (hi - lo); }
@@ -117,15 +118,17 @@ class Physics2D {
         }
       }
 
-      // Bowl floor — recalculated for shallower wave:
-      //   wave div   = bottom 32 % of canvas height H
-      //   SVG path   = M0,42  C420,96  1020,96  1440,42  (viewBox 0 0 1440 100)
-      //   Bezier centre y ≈ 80  →  canvas_y = 0.936 H  →  world_y = -0.872 maxY
-      //   Sides y = 42          →  canvas_y = 0.814 H  →  world_y = -0.628 maxY
-      //   bowlDepth = 0.872 − 0.628 = 0.244 maxY  (gentle shallow bowl)
+      // Bowl floor dynamically calculated from waveFrac container height relative to canvas height
       const nx = Math.max(-1, Math.min(1, I.x / cfg.maxX));
-      const bowlBase  = -(cfg.maxY * 0.872); // world-Y of wave top at centre
-      const bowlDepth =   cfg.maxY * 0.244;  // shallow rise centre → sides
+      const f = cfg.waveFrac || 0.32;
+      // Derived from viewBox="0 0 1440 100" with M0,42 and C...,96... -> visual center drops ~0.80 of SVG height
+      const centerCy = 1.0 - f * 0.20; // 0.80 = 1 - 0.20
+      const sidesCy = 1.0 - f * 0.58; // 0.42 = 1 - 0.58
+      const bowlBaseWorldNorm = (0.5 - centerCy) * 2;
+      const sidesWorldNorm = (0.5 - sidesCy) * 2;
+      
+      const bowlBase = cfg.maxY * bowlBaseWorldNorm;
+      const bowlDepth = cfg.maxY * (sidesWorldNorm - bowlBaseWorldNorm);
       const floorY = bowlBase + (nx * nx) * bowlDepth;
 
       if (I.y - ri < floorY) {
@@ -165,82 +168,35 @@ class Physics2D {
   }
 }
 
-// ─── Icon palette (same visual style as reference) ────────────────────────────
-const ICONS = [
-  { bg: '#001E36', label: 'Ps', color: '#31A8FF' },
-  { bg: '#330000', label: 'Ai', color: '#FF9A00' },
-  { bg: '#49021F', label: 'Id', color: '#FF3366' },
-  { bg: '#2D0E45', label: 'Pr', color: '#9999FF' },
-  { bg: '#00005B', label: 'Ae', color: '#9999FF' },
-  { bg: '#001C26', label: 'Lr', color: '#31A8FF' },
-  { bg: '#4B0018', label: 'Xd', color: '#FF61F6' },
-  { bg: '#23272F', label: 'Re', color: '#61DAFB' },
-  { bg: '#215732', label: 'Nd', color: '#68A063' },
-  { bg: '#161B22', label: 'Gh', color: '#FFFFFF' },
-  { bg: '#1E1E1E', label: 'Fi', color: '#F24E1E' },
-  { bg: '#0057E2', label: 'in', color: '#FFFFFF' },
-  { bg: '#007ACC', label: 'Ts', color: '#FFFFFF' },
-  { bg: '#F7DF1E', label: 'Js', color: '#000000' },
-  { bg: '#E34F26', label: 'Ht', color: '#FFFFFF' },
-  { bg: '#1572B6', label: 'Cs', color: '#FFFFFF' },
-  { bg: '#0284C7', label: 'Tw', color: '#FFFFFF' },
-  { bg: '#764ABC', label: 'Rx', color: '#FFFFFF' },
-  { bg: '#CC6699', label: 'Sa', color: '#FFFFFF' },
-  { bg: '#001E36', label: 'Ps', color: '#31A8FF' },
-];
 
-// ─── Canvas drawing helpers ────────────────────────────────────────────────────
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
+
+let loadedIcons = null;
+function getLoadedIcons() {
+  if (loadedIcons) return loadedIcons;
+  if (typeof window === 'undefined') return []; // safety for SSR
+  
+  loadedIcons = [];
+  for (let i = 0; i < IMAGE_URLS.length; i++) {
+    const url = IMAGE_URLS[i];
+    const img = new window.Image();
+    img.src = url;
+    loadedIcons.push({ img });
+  }
+  return loadedIcons;
 }
 
+// ─── Canvas drawing helpers ────────────────────────────────────────────────────
 function drawIconBox(ctx, icon, cx, cy, sz, angle) {
   const half = sz / 2;
-  const r = sz * 0.21;
 
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(angle);
 
-  // Drop shadow
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.40)';
-  ctx.shadowBlur = sz * 0.28;
-  ctx.shadowOffsetY = sz * 0.07;
-  roundRect(ctx, -half, -half, sz, sz, r);
-  ctx.fillStyle = icon.bg;
-  ctx.fill();
-  ctx.restore();
-
-  // Main fill
-  roundRect(ctx, -half, -half, sz, sz, r);
-  ctx.fillStyle = icon.bg;
-  ctx.fill();
-
-  // Top-edge gloss
-  const gl = ctx.createLinearGradient(-half, -half, -half, -half + sz * 0.45);
-  gl.addColorStop(0, 'rgba(255,255,255,0.14)');
-  gl.addColorStop(1, 'rgba(255,255,255,0)');
-  roundRect(ctx, -half, -half, sz, sz, r);
-  ctx.fillStyle = gl;
-  ctx.fill();
-
-  // Label
-  ctx.font = `700 ${sz * 0.30}px Arial, sans-serif`;
-  ctx.fillStyle = icon.color;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(icon.label, 0, sz * 0.02);
+  // If the image is loaded, draw it exactly as it is without extra shadows
+  if (icon.img && icon.img.complete && icon.img.naturalWidth > 0) {
+    ctx.drawImage(icon.img, -half, -half, sz, sz);
+  }
 
   ctx.restore();
 }
@@ -249,6 +205,7 @@ function drawIconBox(ctx, icon, cx, cy, sz, angle) {
 export default function TechTools() {
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
+  const waveRef = useRef(null);
   const physRef = useRef(null);  
   const started = useRef(false);
 
@@ -265,24 +222,31 @@ export default function TechTools() {
     canvas.width = W;
     canvas.height = H;
 
-    const WORLD_W = 28;
-    const scale = W / WORLD_W;
-    const maxX = (W / scale) / 2;
+    const minScale = window.innerWidth < 768 ? 38 : 45;
+    let scale = W / 28;
+    if (scale < minScale) scale = minScale;
+
+    const WORLD_W = W / scale;
+    const maxX = WORLD_W / 2;
     const maxY = (H / scale) / 2;
 
-    const COUNT = ICONS.length;
-    const icons = ICONS.slice();
+    const icons = getLoadedIcons();
+    const COUNT = icons.length;
+
+    const waveEl = waveRef.current;
+    const initialWaveFrac = waveEl ? (waveEl.offsetHeight / H) : 0.32;
 
     const cfg = {
       count: COUNT,
-      minSize: 0.38,
-      maxSize: 0.52,
-      gravity: 0.22,
+      minSize: 0.48, // Unify sizes
+      maxSize: 0.48, // Unify sizes
+      gravity: 0.15,
       friction: 0.9970,
       wallBounce: 0.72,
       maxVel: 0.18,
       maxX,
       maxY,
+      waveFrac: initialWaveFrac,
       interactR: 2.0,
     };
 
@@ -304,7 +268,7 @@ export default function TechTools() {
       const cH = canvas.height;
       ctx.clearRect(0, 0, cW, cH);
 
-      const sc = cW / WORLD_W;
+      const sc = physRef.current.scale;
 
       for (let i = 0; i < COUNT; i++) {
         const wx = physics.pos[2 * i];
@@ -328,9 +292,19 @@ export default function TechTools() {
       const nH = parent.offsetHeight;
       canvas.width = nW;
       canvas.height = nH;
-      const sc2 = nW / WORLD_W;
+
+      const minS = window.innerWidth < 768 ? 38 : 45;
+      let sc2 = nW / 28;
+      if (sc2 < minS) sc2 = minS;
+
+      const waveEl = waveRef.current;
+      if (waveEl) {
+        physRef.current.physics.cfg.waveFrac = waveEl.offsetHeight / nH;
+      }
+
       physRef.current.physics.cfg.maxX = (nW / sc2) / 2;
       physRef.current.physics.cfg.maxY = (nH / sc2) / 2;
+      physRef.current.scale = sc2;
     });
     ro.observe(parent);
     physRef.current.ro = ro;
@@ -338,7 +312,7 @@ export default function TechTools() {
     // ── Pointer / touch interaction ──
     function worldCoords(ex, ey) {
       const rect = canvas.getBoundingClientRect();
-      const sc3 = canvas.width / WORLD_W;
+      const sc3 = physRef.current.scale;
       return {
         wx: (ex - rect.left) / sc3 - (canvas.width / sc3) / 2,
         wy: -((ey - rect.top) / sc3 - (canvas.height / sc3) / 2),
@@ -421,7 +395,7 @@ export default function TechTools() {
         {/* ── Header overlay — sits above canvas ───────────────────────── */}
         {/* z-30 keeps text readable; icons slide under/over it naturally.  */}
         <div
-          className="relative z-30 flex flex-col items-center text-center"
+          className="relative z-30 flex flex-col items-center text-center pointer-events-none"
           style={{ paddingTop: 'clamp(32px, 5vw, 60px)', paddingBottom: '8px' }}
         >
           <Container>
@@ -445,12 +419,13 @@ export default function TechTools() {
           </Container>
         </div>
 
-        {/* ── Blue bowl wave — bottom 32% of section ───────────────────── */}
+        {/* ── Blue bowl wave responsive container ─────────────────────── */}
         {/* z-20: above canvas so wave renders over icons at the boundary;  */}
         {/* icons that settle IN the bowl appear to sit on its surface.     */}
         <div
+          ref={waveRef}
           className="absolute bottom-0 left-0 w-full pointer-events-none z-20"
-          style={{ height: '32%' }}
+          style={{ height: 'clamp(120px, 18vw, 300px)' }}
         >
           <svg
             viewBox="0 0 1440 100"
@@ -472,7 +447,9 @@ export default function TechTools() {
           width: '100%',
           height: '110px',
           background: 'linear-gradient(to bottom, #2AABEE 0%, #ffffff 100%)',
-          marginTop: '-1px',          /* eliminate any hairline gap */
+          marginTop: '-3px',          /* robustly eliminate sub-pixel hairline gaps */
+          position: 'relative',       /* required for z-index to overlay the gap */
+          zIndex: 10,                 /* ensure the overlay rides above the section's white background seam */
           display: 'block',
         }}
       />

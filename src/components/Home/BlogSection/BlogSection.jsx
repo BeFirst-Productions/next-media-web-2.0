@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Container from '../../Common/Container/Container';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BlogData as blogItems } from '../../../data/BlogData';
 import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 
@@ -66,9 +67,10 @@ export default function BlogSection() {
 
 
 
-  const totalItems = blogItems.length;
+  const displayedItems = blogItems.slice(0, 4);
+  const totalItems = displayedItems.length;
   const activeIndex = Math.min(Math.floor(smoothProgress * totalItems), totalItems - 1);
-  const currentItem = blogItems[activeIndex];
+  const currentItem = displayedItems[activeIndex];
 
   const getRotationStyle = () => {
     if (isAutoRotating) return {};
@@ -76,10 +78,8 @@ export default function BlogSection() {
     switch (activeIndex) {
       case 0: return { transform: 'rotateX(0deg) rotateY(0deg)' };
       case 1: return { transform: 'rotateX(0deg) rotateY(-90deg)' };
-      case 2: return { transform: 'rotateX(0deg) rotateY(-180deg)' };
-      case 3: return { transform: 'rotateX(0deg) rotateY(-270deg)' };
-      case 4: return { transform: 'rotateX(-90deg) rotateY(0deg)' };
-      case 5: return { transform: 'rotateX(90deg) rotateY(0deg)' };
+      case 2: return { transform: 'rotateX(-90deg) rotateY(0deg)' };
+      case 3: return { transform: 'rotateX(90deg) rotateY(0deg)' };
       default: return { transform: 'rotateX(0deg)' };
     }
   };
@@ -87,18 +87,25 @@ export default function BlogSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[500vh] bg-black text-white"
+      className="relative w-full h-[400vh] bg-black text-white"
     >
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
 
-        {/* Blog Badge */}
+        {/* Blog Badge & Description */}
         <Container className="absolute top-16 left-0 right-0 z-50">
-          <SectionBadge>
-            Blog
-          </SectionBadge>
+          <div className="flex flex-col items-start space-y-4">
+            <SectionBadge className="flex items-center gap-2">
+              <span className="text-[#00B4D8] text-xl">★</span>
+              Blog
+            </SectionBadge>
+            <p className="text-white text-lg md:text-xl font-light leading-relaxed max-w-3xl">
+              Stay updated with the latest insights, trends, and ideas in branding, design, and digital innovation. <br className="hidden md:block" />
+              Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
+            </p>
+          </div>
         </Container>
 
-        <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-12 md:gap-0">
+        <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-12 md:gap-0 pt-32 md:pt-40">
 
           {/* CUBE AREA */}
           <div className="relative w-full md:w-1/2 flex items-center justify-center pt-10 md:pt-0">
@@ -107,12 +114,10 @@ export default function BlogSection() {
                 className={`cube ${isAutoRotating ? 'auto-rotate' : ''}`}
                 style={getRotationStyle()}
               >
-                <div className="side front"><Image src={blogItems[0].image} alt="" fill className="object-cover" /></div>
-                <div className="side back"><Image src={blogItems[1].image} alt="" fill className="object-cover" /></div>
-                <div className="side left"><Image src={blogItems[2].image} alt="" fill className="object-cover" /></div>
-                <div className="side right"><Image src={blogItems[3].image} alt="" fill className="object-cover" /></div>
-                <div className="side top"><Image src={blogItems[4].image} alt="" fill className="object-cover" /></div>
-                <div className="side bottom"><Image src={blogItems[5].image} alt="" fill className="object-cover" /></div>
+                <div className="side front bg-black"><Image src={displayedItems[0].homeImage || displayedItems[0].image} alt="" fill className="object-cover" /></div>
+                <div className="side right bg-black"><Image src={displayedItems[1].homeImage || displayedItems[1].image} alt="" fill className="object-cover" /></div>
+                <div className="side bottom bg-black"><Image src={displayedItems[2].homeImage || displayedItems[2].image} alt="" fill className="object-cover" /></div>
+                <div className="side top bg-black"><Image src={displayedItems[3].homeImage || displayedItems[3].image} alt="" fill className="object-cover" /></div>
               </div>
             </div>
 
@@ -125,15 +130,18 @@ export default function BlogSection() {
               <h3 className="text-3xl md:text-4xl 2xl:text-5xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase text-white drop-shadow-2xl">
                 {currentItem.title}
               </h3>
-              <p className="text-[#888888] text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-[420px] mb-8 md:mb-12">
+              <p className=" text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-[420px] mb-8 md:mb-12">
                 {currentItem.desc}
               </p>
 
-              <button className="group relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white rounded-full text-black transition-all duration-300 hover:rotate-45 shadow-xl">
+              <Link
+                href={`/blogs/${currentItem.slug}`}
+                className="group relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white rounded-full text-black transition-all duration-300 hover:rotate-45 shadow-xl"
+              >
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -180,11 +188,9 @@ export default function BlogSection() {
 
         /* Improved translateZ for better centering inside the warped perspective */
         .front  { transform: rotateY(0deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .back   { transform: rotateY(180deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .left   { transform: rotateY(-90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .right  { transform: rotateY(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .top    { transform: rotateX(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
         .bottom { transform: rotateX(-90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
+        .top    { transform: rotateX(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
+        .right  { transform: rotateY(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
 
         @keyframes rotate {
           from { transform: rotateY(0deg) rotateX(0deg); }

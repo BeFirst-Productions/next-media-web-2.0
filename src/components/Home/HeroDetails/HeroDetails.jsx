@@ -35,8 +35,10 @@ export default function HeroDetails() {
           {/* Top Heading Block */}
           <div className="max-w-4xl">
             <h2 className="text-white text-3xl md:text-4xl 2xl:text-5xl font-light leading-tight tracking-tight">
-              <span className="font-semibold">Etiam eu turpis molestie</span>, <br />
-              <span className="font-semibold text-white">dictum est a</span>, <span className="text-[#a0a0a0]">mattis tellus.</span>
+              <span className="font-semibold">Best Branding Agency Dubai
+              </span>, <br />
+              <span className="font-semibold text-white">Design. Strategy. Brand Excellence.
+              </span>
               <span className="inline-block ml-4 text-[#2bc5ee]">
                 <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
                   <path fillRule="evenodd" clipRule="evenodd" d="M0 3.00408C0.000186338 0.694829 2.50007 -0.748234 4.5 0.406423L21.9648 10.4894C23.9648 11.6441 23.9648 14.531 21.9648 15.6857L4.5 25.7687C2.5 26.9234 0 25.4805 0 23.1711V3.00408ZM5.91113 2.85076C3.91119 1.69639 1.41113 3.14011 1.41113 5.44939V20.7267C1.4114 23.0359 3.91127 24.4788 5.91113 23.3244L19.1416 15.6857C21.1416 14.531 21.1416 11.6441 19.1416 10.4894L5.91113 2.85076Z" fill="#29ABE2" />
@@ -79,10 +81,12 @@ export default function HeroDetails() {
             {/* Right Column: Description Text */}
             <div className="flex flex-col space-y-8">
               <p className="text-white/80 text-xl md:text-2xl leading-relaxed font-light">
-                Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
-                Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus.
-                Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti nostra, per inceptos himenaeos.
-                Class aptent taciti nostra, per inceptos himenaeos.
+                We are a Creative agency in Dubai, we are ambitious and kind-hearted individuals who come from various parts of the world. This implies that we offer a global viewpoint on every assignment and mix it with the local culture. This especially applies to design.
+
+              </p>
+              <p className="text-white/80 text-xl md:text-2xl leading-relaxed font-light">
+                In a crowded market where brands continually vie for consumers' attention, distinctive design is the most effective weapon to set yourself apart. As a top branding agency  Dubai, we develop progressive brand strategies and corporate identities that not only mirror the latest trends but are also designed to be flexible and sustained over time.
+
               </p>
 
               <div className="flex items-center space-x-4">
