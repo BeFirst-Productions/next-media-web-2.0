@@ -99,16 +99,15 @@ export default function BlogSection() {
               Blog
             </SectionBadge>
             <p className="text-white text-lg md:text-xl font-light leading-relaxed max-w-3xl">
-              Stay updated with the latest insights, trends, and ideas in branding, design, and digital innovation. <br className="hidden md:block" />
-              Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
+          Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
             </p>
           </div>
         </Container>
 
-        <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-12 md:gap-0 pt-32 md:pt-40">
+        <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-8 md:gap-0 pt-56 sm:pt-48 md:pt-40">
 
           {/* CUBE AREA */}
-          <div className="relative w-full md:w-1/2 flex items-center justify-center pt-10 md:pt-0">
+          <div className="relative w-full md:w-1/2 flex items-center justify-center ">
             <div className="cube-wrapper">
               <div
                 className={`cube ${isAutoRotating ? 'auto-rotate' : ''}`}
@@ -127,7 +126,7 @@ export default function BlogSection() {
           {/* CONTENT AREA */}
           <div className="w-full md:w-1/2 xl:w-1/3 flex flex-col items-center md:items-start pl-0 md:pl-20 px-6 sm:px-0 text-center md:text-left">
             <div key={activeIndex} className="flex flex-col items-center md:items-start animate-in fade-in slide-in-from-bottom-8 duration-1200 transition-all">
-              <h3 className="text-3xl md:text-4xl 2xl:text-5xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase text-white drop-shadow-2xl">
+              <h3 className="text-2xl md:text-3xl 2xl:text-4xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase text-white drop-shadow-2xl">
                 {currentItem.title}
               </h3>
               <p className=" text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-[420px] mb-8 md:mb-12">
@@ -156,12 +155,19 @@ export default function BlogSection() {
         }
 
         .cube {
-          width: clamp(180px, 45vw, 400px);
-          height: clamp(180px, 45vw, 400px);
+          width: clamp(150px, 40vw, 320px);
+          height: clamp(150px, 40vw, 320px);
           position: relative;
           transform-style: preserve-3d;
           transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
           will-change: transform;
+        }
+
+        @media (min-width: 1536px) {
+          .cube {
+            width: 400px;
+            height: 400px;
+          }
         }
 
         .auto-rotate {
@@ -187,10 +193,17 @@ export default function BlogSection() {
         }
 
         /* Improved translateZ for better centering inside the warped perspective */
-        .front  { transform: rotateY(0deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .bottom { transform: rotateX(-90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .top    { transform: rotateX(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
-        .right  { transform: rotateY(90deg) translateZ(clamp(90px, 22.5vw, 200px)); }
+        .front  { transform: rotateY(0deg) translateZ(clamp(75px, 20vw, 160px)); }
+        .bottom { transform: rotateX(-90deg) translateZ(clamp(75px, 20vw, 160px)); }
+        .top    { transform: rotateX(90deg) translateZ(clamp(75px, 20vw, 160px)); }
+        .right  { transform: rotateY(90deg) translateZ(clamp(75px, 20vw, 160px)); }
+
+        @media (min-width: 1536px) {
+          .front  { transform: rotateY(0deg) translateZ(200px); }
+          .bottom { transform: rotateX(-90deg) translateZ(200px); }
+          .top    { transform: rotateX(90deg) translateZ(200px); }
+          .right  { transform: rotateY(90deg) translateZ(200px); }
+        }
 
         @keyframes rotate {
           from { transform: rotateY(0deg) rotateX(0deg); }

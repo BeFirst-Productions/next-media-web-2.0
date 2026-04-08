@@ -66,7 +66,10 @@ export default function ProjectSection() {
     <section 
       ref={sectionRef} 
       className="relative w-full md:py-24 py-16 transition-colors duration-200 overflow-hidden"
-      style={{ backgroundColor: bgColor }}
+      style={{ 
+        backgroundColor: bgColor,
+        '--dynamic-text': textColor 
+      }}
     >
       <Container>
 
@@ -75,8 +78,8 @@ export default function ProjectSection() {
           <SectionBadge 
             className="flex items-center gap-2 py-1.5 px-4 shadow-sm transition-colors! duration-200"
             style={{ 
-              color: textColor, 
-              borderColor: colorFactor > 0.5 ? '#00B4D8' : '#00B4D8',
+              color: 'var(--dynamic-text)', 
+              borderColor: '#00B4D8',
               backgroundColor: colorFactor > 0.5 ? 'transparent' : 'white'
             }}
           >
@@ -113,11 +116,18 @@ export default function ProjectSection() {
 
         {/* Bottom Section with theme-aware button */}
         <div className="mt-28 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center relative overflow-hidden transition-colors duration-200">
-            <button className="flex items-center gap-6 group cursor-pointer transition-all duration-500">
+          <div className="flex flex-col items-center justify-center relative transition-colors duration-200">
+            <button className="group relative flex items-center rounded-full p-2 pr-12 transition-all duration-500 overflow-hidden">
+              {/* Expanding fill layer - Starts as the circle, expands to fill the button */}
               <div 
-                className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 transform group-hover:rotate-45 ${
-                  colorFactor > 0.5 ? 'bg-white text-black' : 'bg-black text-white'
+                className={`absolute left-2 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full transition-all duration-500 ease-in-out group-hover:w-full group-hover:h-full group-hover:left-0 z-0 ${
+                  colorFactor > 0.5 ? 'bg-white' : 'bg-black'
+                }`}
+              ></div>
+
+              <div 
+                className={`relative z-10 w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 transform group-hover:rotate-45 ${
+                  colorFactor > 0.5 ? 'text-black' : 'text-white'
                 }`}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -125,8 +135,10 @@ export default function ProjectSection() {
                 </svg>
               </div>
               <span 
-                className="text-xl font-medium tracking-tight transition-colors duration-200" 
-                style={{ color: textColor }}
+                className={`relative z-10 text-xl font-medium tracking-tight transition-all duration-500 ml-4 ${
+                  colorFactor > 0.5 ? 'group-hover:text-black!' : 'group-hover:text-white!'
+                }`}
+                style={{ color: 'var(--dynamic-text)' }}
               >
                 View More
               </span>

@@ -28,8 +28,10 @@ export default function FloatingNavbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show navbar as soon as scrolling starts (threshold: 50px)
-      if (window.scrollY > 50) {
+      // On mobile, wait until HeroSection is done (approx 4 viewports) before showing
+      const threshold = window.innerWidth < 640 ? window.innerHeight * 4 : 50;
+      
+      if (window.scrollY > threshold) {
         setIsVisible(true);
       } else {
         setIsVisible(false);

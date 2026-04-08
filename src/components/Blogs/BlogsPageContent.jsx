@@ -10,7 +10,7 @@ import { BlogData } from '../../data/BlogData';
 const BlogItem = ({ slug, title, desc, image, isLarge = false }) => {
   return (
     <Link href={`/blogs/${slug}`} className="group cursor-pointer flex flex-col space-y-5">
-      <div className={`relative ${isLarge ? 'aspect-video md:aspect-video lg:aspect-3/2' : 'aspect-video md:aspect-video lg:aspect-3/2'} w-full overflow-hidden rounded-[24px] sm:rounded-[40px] bg-white/5 transition-transform duration-500`}>
+      <div className={`relative ${isLarge ? 'aspect-video md:aspect-video lg:aspect-video 2xl:aspect-16/10' : 'aspect-video md:aspect-video lg:aspect-video 2xl:aspect-16/10'} w-full overflow-hidden rounded-[24px] sm:rounded-[40px] bg-white/5 transition-transform duration-500`}>
         <Image 
           src={image} 
           alt={title}
@@ -81,10 +81,10 @@ export default function BlogsPageContent() {
             />
           </div>
 
-          {/* List Posts - Using components of the same grid on md */}
-          <div className="md:contents lg:col-span-6 lg:flex lg:flex-col lg:space-y-16 xl:space-y-20">
+          {/* List Posts - Using a grid on large screens to reduce image size */}
+          <div className="md:col-span-1 lg:col-span-6 grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10 lg:gap-y-12">
             {listBlogs.map((blog, idx) => (
-              <div key={idx} className="md:col-span-1">
+              <div key={idx} className="">
                 <BlogItem 
                   slug={blog.slug}
                   title={blog.title} 

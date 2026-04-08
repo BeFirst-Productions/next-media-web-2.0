@@ -8,8 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-urbanist);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-bdo);
+  --font-urbanist: var(--font-urbanist);
 
   /* Animations */
   --animate-marquee-left: marquee-left 40s linear infinite;
@@ -17,19 +19,32 @@
   --animate-fade-in-up: fade-in-up 1s ease-out forwards;
 
   @keyframes marquee-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
   }
+
   @keyframes marquee-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+    from {
+      transform: translateX(-50%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
   }
+
   @keyframes fade-in-up {
-    from { 
+    from {
       opacity: 0;
       transform: translateY(30px);
     }
-    to { 
+
+    to {
       opacity: 1;
       transform: translateY(0);
     }
@@ -43,8 +58,25 @@
   }
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
+}
+
+/* Prevent jumping of fixed elements when menu is open */
+body.menu-open nav.fixed {
+  padding-right: var(--scrollbar-width, 0);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bdo), sans-serif;
+}
+
+p {
+  font-family: var(--font-urbanist), sans-serif;
 }

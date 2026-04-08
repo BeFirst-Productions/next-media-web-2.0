@@ -1,0 +1,90 @@
+/*
+ * ScrollToTop Component Styles
+ * 
+ * Implements a modern, glassmorphic design for the scroll-to-top button.
+ * Includes smooth transitions and hover effects.
+ */
+
+ .scroll-to-top {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px) scale(0.8);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); 
+    color: #fff;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    z-index: -1;
+}
+
+.scroll-button:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.scroll-button:active {
+    transform: scale(0.92) translateY(-4px);
+}
+
+.scroll-button svg {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+}
+
+.scroll-button:hover svg {
+    transform: translateY(-3px);
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: 640px) {
+    .scroll-to-top {
+        bottom: 7.5rem;
+        right: 1rem;
+    }
+    
+    .scroll-button {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+}

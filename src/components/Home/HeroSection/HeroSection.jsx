@@ -67,22 +67,19 @@ export default function HeroSection() {
                 style={{ transform: `translateY(-${translateYAmount}px)` }}
               >
                 {/* Top Text Line */}
-                <div className="flex items-center space-x-2 md:space-x-4 text-[26px] sm:text-[40px] md:text-[50px] lg:text-[60px] xl:text-[76px] leading-[1.1] mix-blend-difference">
-                  <span className="text-white whitespace-nowrap">
+                <div className="flex items-center space-x-2 md:space-x-4 text-[21px] sm:text-[40px] md:text-[50px] lg:text-[60px] xl:text-[76px] leading-[1.1] mix-blend-difference">
+                  <span className="text-white whitespace-normal sm:whitespace-nowrap">
                     <span className="font-bold">Ready to </span>{' '}
                     <span className="font-light"> grow your</span>{' '}
                     <span className="font-bold"> brand?</span>
                   </span>
                   <svg
-                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#2bc5ee] shrink-0"
-                    viewBox="0 0 24 24"
+                    className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shrink-0 overflow-visible"
+                    viewBox="0 0 24 27"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="M5 3l14 9-14 9V3z" />
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 3.00408C0.000186167 0.694829 2.50007 -0.748234 4.5 0.406423L21.9648 10.4894C23.9648 11.6441 23.9648 14.531 21.9648 15.6857L4.5 25.7687C2.5 26.9234 0 25.4805 0 23.1711V3.00408ZM5.91113 2.85076C3.91119 1.69639 1.41113 3.14011 1.41113 5.44939V20.7267C1.4114 23.0359 3.91127 24.4788 5.91113 23.3244L19.1416 15.6857C21.1416 14.531 21.1416 11.6441 19.1416 10.4894L5.91113 2.85076Z" fill="#29ABE2" />
                   </svg>
                 </div>
 
@@ -125,19 +122,16 @@ export default function HeroSection() {
                 style={{ transform: `translateY(${translateYAmount}px)` }}
               >
                 {/* Bottom Text Line */}
-                <div className="flex items-center space-x-2 md:space-x-4 text-[26px] sm:text-[40px] md:text-[50px] lg:text-[60px] xl:text-[76px] leading-[1.1] ml-0 md:ml-12 lg:ml-16 mix-blend-difference">
+                <div className="flex items-center space-x-2 md:space-x-4 text-[21px] sm:text-[40px] md:text-[50px] lg:text-[60px] xl:text-[76px] leading-[1.1] ml-0 md:ml-12 lg:ml-16 mix-blend-difference">
                   <svg
-                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#2bc5ee] shrink-0"
-                    viewBox="0 0 24 24"
+                    className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shrink-0 rotate-90 overflow-visible"
+                    viewBox="0 0 24 27"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="M3 5l9 14 9-14H3z" />
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 3.00408C0.000186167 0.694829 2.50007 -0.748234 4.5 0.406423L21.9648 10.4894C23.9648 11.6441 23.9648 14.531 21.9648 15.6857L4.5 25.7687C2.5 26.9234 0 25.4805 0 23.1711V3.00408ZM5.91113 2.85076C3.91119 1.69639 1.41113 3.14011 1.41113 5.44939V20.7267C1.4114 23.0359 3.91127 24.4788 5.91113 23.3244L19.1416 15.6857C21.1416 14.531 21.1416 11.6441 19.1416 10.4894L5.91113 2.85076Z" fill="#29ABE2" />
                   </svg>
-                  <span className="text-white whitespace-nowrap">
+                  <span className="text-white whitespace-normal sm:whitespace-nowrap">
                     <span className="font-bold">We build</span>{' '}
                     <span className="font-light">brand identities.</span>
                   </span>
@@ -148,14 +142,14 @@ export default function HeroSection() {
 
             {/* Expanding Video - Fully visible at 30% scroll */}
             <div
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[90vh] md:h-[95vh] rounded-xl md:rounded-3xl overflow-hidden bg-[#0d0d0d] shadow-[0_0_50px_rgba(43,197,238,0.2)] border border-[#2bc5ee]/20 pointer-events-none transition-transform duration-75"
+              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-screen h-[90vh] md:left-0 md:translate-x-0 md:w-full md:h-[95vh] rounded-none md:rounded-3xl overflow-hidden bg-[#0d0d0d] shadow-[0_0_50px_rgba(43,197,238,0.2)] border border-[#2bc5ee]/20 pointer-events-none transition-transform duration-75 [--video-round:0px] md:[--video-round:32px]"
               style={{
-                clipPath: `inset(${50 - (50 * videoProgress)}% 0 ${50 - (50 * videoProgress)}% 0 round 32px)`,
+                clipPath: `inset(${50 - (50 * videoProgress)}% 0 ${50 - (50 * videoProgress)}% 0 round var(--video-round))`,
                 opacity: scrollProgress > 0.01 ? heroOpacity : 0,
                 zIndex: videoProgress > 0.7 ? 30 : 10
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center text-[#2bc5ee]/50 font-light tracking-widest text-sm md:text-base border border-[#2bc5ee]/20 m-4 rounded-xl md:rounded-2xl border-dashed">
+              <div className="absolute inset-0 flex items-center justify-center text-[#2bc5ee]/50 font-light tracking-widest text-sm md:text-base border border-[#2bc5ee]/20 m-4 rounded-none md:rounded-2xl border-dashed">
                 [ REPLACE WITH YOUR VIDEO ]
               </div>
               <video

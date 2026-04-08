@@ -40,17 +40,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent background scrolling when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
 
   return (
     <>
@@ -63,13 +52,13 @@ export default function Navbar() {
         <Container>
           <div className="flex justify-between items-center w-full">
             {/* Logo */}
-            <Link href="/" className="group focus:outline-none flex items-center">
-              <div className="relative w-36 h-10 sm:w-44 sm:h-16 md:w-52 md:h-20 lg:w-60 lg:h-24 transition-transform duration-300 group-hover:scale-[1.02]">
+            <Link href="/" className="group block focus:outline-none focus:ring-0 focus-visible:outline-none border-none no-underline outline-none select-none">
+              <div className="relative w-28 h-8 sm:w-36 sm:h-12 md:w-44 md:h-16 overflow-visible pointer-events-none">
                 <Image
                   src="/logo.svg"
                   alt="Next Media Logo"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left transition-transform duration-500 group-hover:scale-[1.03] will-change-transform transform-gpu backface-hidden"
                   priority
                 />
               </div>

@@ -12,7 +12,7 @@ export default function ServicesHero({
   altText = "Our Services Workspace"
 }) {
   return (
-    <section className="relative w-full pt-16 pb-20 md:pt-24 md:pb-32 bg-black overflow-hidden">
+    <section className="relative w-full pt-16 pb-10 md:pt-24 md:pb-32 bg-black overflow-hidden">
       <Container>
         <div className="flex flex-col ">
           {/* Heading */}

@@ -8,24 +8,24 @@ import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 const testimonials = [
   {
     id: 1,
-    text: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan,",
-    name: "Sarah Chen",
-    role: "Project Manager",
-    image: "/images/dummy/1.png"
+    text: "Next Media delivered outstanding results for our brand. Their creative approach and attention to detail truly set them apart.",
+    name: "Sarah Khan",
+    role: "Marketing Manager",
+    image: "/images/persons/Sarah Khan.png"
   },
   {
     id: 2,
-    text: "Working with Next Media has elevated our brand to new heights. Their creative vision and technical execution are truly world-class and inspiring.",
-    name: "John Smith",
-    role: "Marketing Director",
-    image: "/images/dummy/2.png"
+    text: "A seamless experience from start to finish. Their team understood our vision and executed it flawlessly.",
+    name: "Nisha Thomas",
+    role: "Brand Strategist",
+    image: "/images/persons/Nisha Thomas.png"
   },
   {
     id: 3,
-    text: "The speed and quality of delivery surpassed all our expectations. They didn't just meet our requirements; they redefined what was possible for our digital presence.",
-    name: "Alex Rivera",
-    role: "Founding Partner",
-    image: "/images/dummy/3.png"
+    text: "Professional, reliable, and highly skilled. Our engagement and reach improved significantly after working with them.",
+    name: "Ahmed Rafi",
+    role: "Business Owner",
+    image: "/images/persons/Ahmed Rafi.png"
   }
 ];
 
