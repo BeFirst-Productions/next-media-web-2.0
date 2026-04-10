@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} ${bdoGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white">
+      <body className="min-h-full flex flex-col bg-black text-white" suppressHydrationWarning>
         <Navbar />
         <main className="grow">
           {children}
