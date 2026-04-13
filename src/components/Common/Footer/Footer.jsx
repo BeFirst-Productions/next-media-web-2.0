@@ -170,14 +170,14 @@ const Footer = () => {
 
           <div className="flex flex-col items-center md:items-end gap-3 text-center md:text-right pb-4 w-full md:w-auto">
             <div className="flex items-center gap-4 text-sm font-medium text-white/90">
-              <Link href="/privacy" className="hover:text-[#00A3FF]">Privacy Policy</Link>
+              <Link href="/privacy-policy" className="hover:text-[#00A3FF]">Privacy Policy</Link>
               <span className="opacity-30">|</span>
               <Link href="/career" className="hover:text-[#00A3FF]">Career</Link>
               <span className="opacity-30">|</span>
-              <Link href="/terms" className="hover:text-[#00A3FF]">Terms of service</Link>
+              <Link href="/terms-and-condition" className="hover:text-[#00A3FF]">Terms & Conditions</Link>
             </div>
             <div className="text-xs   mt-2">
-              © 2025 Next Digital Marketing. All rights reserved.
+              © 2026 Next Digital Marketing. All rights reserved.
             </div>
           </div>
         </div>

@@ -325,7 +325,7 @@ export default function CreateSuccess() {
           className="cs-cloud-top-fade"
           style={{
             position: 'absolute',
-            bottom: '-10px',
+            bottom: '50px',
             left: 0,
             right: 0,
             height: '340px',   /* taller than original 260 px for better coverage */
@@ -338,7 +338,7 @@ export default function CreateSuccess() {
             style={{
               ...cloudLayerBase,
               backgroundImage: layer1,
-              animation: 'cs-clouds-1 90s linear infinite',
+              animation: 'cs-clouds-1 20s linear infinite',
               zIndex: 7,
             }}
           />
@@ -348,7 +348,7 @@ export default function CreateSuccess() {
             style={{
               ...cloudLayerBase,
               backgroundImage: layer2,
-              animation: 'cs-clouds-2 150s linear infinite',
+              animation: 'cs-clouds-2 35s linear infinite',
               opacity: 0.65,
               filter: 'blur(1.5px)',
               zIndex: 6,
@@ -360,7 +360,7 @@ export default function CreateSuccess() {
             style={{
               ...cloudLayerBase,
               backgroundImage: layer3,
-              animation: 'cs-clouds-3 120s linear infinite',
+              animation: 'cs-clouds-3 50s linear infinite',
               opacity: 0.38,
               filter: 'blur(3px)',
               zIndex: 5,

@@ -11,6 +11,10 @@ export const IMAGE_URLS = [
   '/images/technologies/node-icon.svg',
   '/images/technologies/photoshop-icon.svg',
   '/images/technologies/premium-icon.svg',
+   '/images/technologies/vscode-icon.svg',
+  '/images/technologies/wordpress-icon.svg',
+  '/images/technologies/searchconsole-icon.svg',
+  '/images/technologies/quora-icon.svg',
   '/images/technologies/react-icon.svg',
   '/images/technologies/linkedin-icon.svg',
   '/images/technologies/drive-icon.svg',
@@ -18,5 +22,9 @@ export const IMAGE_URLS = [
   '/images/technologies/figma-icon.svg',
   '/images/technologies/adobe-illustrator-icon.svg',
   '/images/technologies/photoshop-icon.svg',
+  '/images/technologies/vscode-icon.svg',
+  '/images/technologies/wordpress-icon.svg',
+  '/images/technologies/searchconsole-icon.svg',
+  '/images/technologies/quora-icon.svg',
 
 ];

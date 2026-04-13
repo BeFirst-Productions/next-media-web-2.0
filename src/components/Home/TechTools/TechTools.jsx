@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from '../../Common/Container/Container';
+import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 import { IMAGE_URLS } from '@/data/TechData';
-
+import React from 'react';
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function randFloat(lo, hi) { return lo + Math.random() * (hi - lo); }
 function randSpread(r) { return r * (0.5 - Math.random()); }
@@ -126,7 +127,7 @@ class Physics2D {
       const sidesCy = 1.0 - f * 0.58; // 0.42 = 1 - 0.58
       const bowlBaseWorldNorm = (0.5 - centerCy) * 2;
       const sidesWorldNorm = (0.5 - sidesCy) * 2;
-      
+
       const bowlBase = cfg.maxY * bowlBaseWorldNorm;
       const bowlDepth = cfg.maxY * (sidesWorldNorm - bowlBaseWorldNorm);
       const floorY = bowlBase + (nx * nx) * bowlDepth;
@@ -174,7 +175,7 @@ let loadedIcons = null;
 function getLoadedIcons() {
   if (loadedIcons) return loadedIcons;
   if (typeof window === 'undefined') return []; // safety for SSR
-  
+
   loadedIcons = [];
   for (let i = 0; i < IMAGE_URLS.length; i++) {
     const url = IMAGE_URLS[i];
@@ -206,8 +207,34 @@ export default function TechTools() {
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
   const waveRef = useRef(null);
-  const physRef = useRef(null);  
+  const physRef = useRef(null);
   const started = useRef(false);
+  const [isWhite, setIsWhite] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate how much of the section is visible
+      // progress = 0 when top is at bottom, progress = 1 when top is at top
+      const progress = (viewportHeight - rect.top) / viewportHeight;
+      
+      if (progress >= 0.4) {
+        setIsWhite(true);
+      } else {
+        setIsWhite(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // ── Start / restart the simulation ───────────────────────────────────────
   function startSim(canvas) {
@@ -373,7 +400,7 @@ export default function TechTools() {
        */}
       <section
         ref={sectionRef}
-        className="relative w-full bg-white overflow-hidden"
+        className={`relative w-full overflow-hidden transition-colors duration-1000 ease-in-out ${isWhite ? 'bg-white' : 'bg-black'}`}
         style={{ height: '100vh' }}
       >
         {/* ── Full-section canvas — spans entire 100vh ─────────────────── */}
@@ -389,22 +416,18 @@ export default function TechTools() {
         {/* z-30 keeps text readable; icons slide under/over it naturally.  */}
         <div
           className="relative z-30 flex flex-col items-center text-center pointer-events-none"
-          style={{ paddingTop: 'clamp(32px, 5vw, 60px)', paddingBottom: '8px' }}
+          style={{ paddingTop: 'clamp(80px, 12vh, 160px)', paddingBottom: '8px' }}
         >
           <Container>
             <div className="flex flex-col items-center text-center">
               {/* Badge */}
-              <div
-                className="inline-flex items-center gap-2 border border-[#0099CC]/40
-                           rounded-full px-4 py-1.5 mb-3 text-[#0099CC] text-sm
-                           font-medium tracking-wide bg-white/80 shadow-sm"
-              >
+              <SectionBadge className={`mb-3 !text-[#00B4D8] !border-[#00B4D8]/30 transition-all duration-700 ${isWhite ? '!bg-white/80' : '!bg-white/10'}`}>
                 <span className="text-base">★</span>
                 Technology &amp; Tools
-              </div>
+              </SectionBadge>
 
               {/* Subtitle */}
-              <p className="text-[#555] text-sm md:text-base leading-relaxed max-w-sm md:max-w-md">
+              <p className={`text-sm md:text-base leading-relaxed max-w-sm md:max-w-md transition-colors duration-700 ${isWhite ? 'text-black' : 'text-white'}`}>
                 Gorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
                 Etiam eu turpis molestie, dictum est a,
               </p>

@@ -99,7 +99,7 @@ export default function BlogSection() {
               Blog
             </SectionBadge>
             <p className="text-white text-lg md:text-xl font-light leading-relaxed max-w-3xl">
-          Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
+              Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
             </p>
           </div>
         </Container>

@@ -85,7 +85,7 @@ export default function HeroSection() {
 
                 {/* Continuously Animated Separator Line */}
                 <div
-                  className="w-[105%] md:w-full h-[1px] md:h-[2px] my-2 sm:my-3 relative -ml-2 md:ml-0 flex shadow-[0_0_15px_rgba(43,197,238,0.6)] overflow-hidden transition-opacity duration-300"
+                  className="w-[105%] md:w-full h-[1px] md:h-[2px] my-2 sm:my-3 relative -ml-2 md:ml-0 flex  overflow-hidden transition-opacity duration-300"
                   style={{ opacity: Math.max(1 - (scrollProgress * 20), 0) }}
                 >
                   <style>{`

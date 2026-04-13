@@ -45,8 +45,8 @@ export default function Home() {
       <TechTools />
       <CreateSuccess />
       <ClientSection />
-      <TestimonialSection />
       <ProjectSection />
+      <TestimonialSection />
       <FaqSection />
       <SocialMediaSection />
     </>
