@@ -428,8 +428,7 @@ export default function TechTools() {
 
               {/* Subtitle */}
               <p className={`text-sm md:text-base leading-relaxed max-w-sm md:max-w-md transition-colors duration-700 ${isWhite ? 'text-black' : 'text-white'}`}>
-                Gorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
-                Etiam eu turpis molestie, dictum est a,
+                Our work is powered by innovative technology and smart tools designed for better performance and productivity.
               </p>
             </div>
           </Container>

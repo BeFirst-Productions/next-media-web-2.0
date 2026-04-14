@@ -10,6 +10,7 @@ import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 export default function BlogSection() {
   const [smoothProgress, setSmoothProgress] = useState(0);
   const [isAutoRotating, setIsAutoRotating] = useState(false);
+  const [isWhite, setIsWhite] = useState(false);
   const sectionRef = useRef(null);
   const targetProgress = useRef(0);
   const rafRef = useRef(null);
@@ -33,6 +34,14 @@ export default function BlogSection() {
         }
       } else {
         targetProgress.current = 0;
+      }
+
+      // Background transition logic: Sync with TechTools transition
+      // Turns white when the section is approximately 40% scrolled past its sticky point
+      if (rect.bottom < windowHeight * 0.6) {
+        setIsWhite(true);
+      } else {
+        setIsWhite(false);
       }
     };
 
@@ -87,18 +96,18 @@ export default function BlogSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[400vh] bg-black text-white"
+      className={`relative w-full h-[400vh] transition-colors duration-1000 ease-in-out ${isWhite ? 'bg-white' : 'bg-black'}`}
     >
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-black">
+      <div className={`sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden transition-colors duration-1000 ease-in-out ${isWhite ? 'bg-white' : 'bg-black'}`}>
 
         {/* Blog Badge & Description */}
         <Container className="absolute top-16 left-0 right-0 z-50">
           <div className="flex flex-col items-start space-y-4">
-            <SectionBadge className="flex items-center gap-2">
+            <SectionBadge className={`flex items-center gap-2 transition-all duration-700 ${isWhite ? '!text-black !border-black/20 !bg-black/5' : ''}`}>
               <span className="text-[#00B4D8] text-xl">★</span>
               Blog
             </SectionBadge>
-            <p className="text-white text-lg md:text-xl font-light leading-relaxed max-w-3xl">
+            <p className={`transition-colors duration-700 text-lg md:text-xl font-light leading-relaxed max-w-3xl ${isWhite ? 'text-black' : 'text-white'}`}>
               Our blog brings you expert perspectives, creative inspiration, and practical strategies to help your business grow.
             </p>
           </div>
@@ -126,16 +135,16 @@ export default function BlogSection() {
           {/* CONTENT AREA */}
           <div className="w-full md:w-1/2 xl:w-1/3 flex flex-col items-center md:items-start pl-0 md:pl-20 px-6 sm:px-0 text-center md:text-left">
             <div key={activeIndex} className="flex flex-col items-center md:items-start animate-in fade-in slide-in-from-bottom-8 duration-1200 transition-all">
-              <h3 className="text-2xl md:text-3xl 2xl:text-4xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase text-white drop-shadow-2xl">
+              <h3 className={`text-2xl md:text-3xl 2xl:text-4xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase transition-colors duration-700 drop-shadow-2xl ${isWhite ? 'text-black' : 'text-white'}`}>
                 {currentItem.title}
               </h3>
-              <p className=" text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-[420px] mb-8 md:mb-12">
+              <p className={`text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-[420px] mb-8 md:mb-12 transition-colors duration-700 ${isWhite ? 'text-black' : 'text-white'}`}>
                 {currentItem.desc}
               </p>
 
               <Link
                 href={`/blogs/${currentItem.slug}`}
-                className="group relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white rounded-full text-black transition-all duration-300 hover:rotate-45 shadow-xl"
+                className={`group relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center rounded-full transition-all duration-300 hover:rotate-45 shadow-xl ${isWhite ? 'bg-black text-white' : 'bg-white text-black'}`}
               >
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -181,10 +190,10 @@ export default function BlogSection() {
           display: flex;
           justify-content: center;
           align-items: center;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          background-color: #000;
+          border: 1px solid ${isWhite ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'};
+          background-color: ${isWhite ? '#fff' : '#000'};
           backface-visibility: hidden;
-          transition: box-shadow 400ms ease, border-color 400ms ease;
+          transition: box-shadow 400ms ease, background-color 700ms ease, border-color 700ms ease;
         }
 
         .side:hover {

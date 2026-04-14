@@ -78,7 +78,7 @@ export default function FaqSection() {
                 {/* Active Indicator Line */}
                 <div className={`absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#00B4D8] to-blue-600 transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-100'}`} />
                 
-                <div className="flex-1 px-8 py-7 md:py-9">
+                <div className="flex-1 px-8 py-5 md:py-6">
                   <div className="flex justify-between items-center gap-6">
                     <h3 className={`text-base md:text-lg  2xl:text-xl font-medium tracking-wide transition-colors duration-300 ${isActive ? 'text-white' : 'text-white group-hover:text-white'}`}>
                       {faq.question}
@@ -95,7 +95,7 @@ export default function FaqSection() {
                   </div>
 
                   {/* Answer Content */}
-                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                     <p className="text-base md:text-lg text-white font-light leading-relaxed max-w-2xl  pl-6 ml-1">
                       {faq.answer}
                     </p>
