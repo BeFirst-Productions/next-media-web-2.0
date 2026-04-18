@@ -7,28 +7,28 @@ import SectionBadge from '../../Common/SectionBadge/SectionBadge';
 const faqs = [
   {
     id: 1,
-    question: "What services do you offer?",
-    answer: "We provide branding, design, and digital solutions tailored to help your business grow and stand out."
+    question: "What is Next Media and what does it do as a creative agency in Dubai?",
+    answer: "Next Media is a leading creative agency in Dubai that helps businesses grow through branding, web design, videography, and digital marketing. Founded by a graphic designer and digital marketing specialist alongside an IT professional, the agency blends creative storytelling with technology to deliver campaigns that engage audiences and drive measurable results across the UAE and GCC."
   },
   {
     id: 2,
-    question: "How long does a branding project take?",
-    answer: "Timelines vary based on scope, but most projects are completed within a few weeks."
+    question: "Why should I choose a branding agency in Dubai like Next Media?",
+    answer: "Partnering with a branding agency in Dubai gives your business a competitive edge in one of the world's fastest-growing markets. Next Media crafts brand identities that resonate locally and internationally combining logo design, visual guidelines, messaging strategy, and digital presence."
   },
   {
     id: 3,
-    question: "What makes Next Media Dubai stand out from other creative agencies?",
-    answer: "Next Media Dubai stands out through its commitment to genuine creativity, customized solutions, and a team of highly skilled professionals. We don’t believe in one-size-fits-all approaches. Every project is tailored to meet the unique needs and goals of each client."
+    question: "What branding services does Next Media provide?",
+    answer: "As a full-service branding agency in Dubai, Next Media offers brand identity design, logo creation, visual brand guidelines, creative campaign development, and brand strategy consulting."
   },
   {
     id: 4,
-    question: "Do you offer customized solutions?",
-    answer: "Yes, all our services are tailored to your business goals and target audience."
+    question: "Is Next Media a social media marketing company in Dubai?",
+    answer: "Yes. Next Media is a social media marketing company in Dubai offering end-to-end social media solutions from strategy and content creation to publishing and performance analysis. The team produces platform-native content for Instagram, LinkedIn, TikTok, and more, helping brands build engaged communities and convert followers into customers."
   },
   {
     id: 5,
-    question: "Can you help improve an existing brand?",
-    answer: "Absolutely! We can refresh, redesign, or completely reposition your brand."
+    question: "What social media marketing services does Next Media offer in Dubai?",
+    answer: "Next Media's social media marketing services in Dubai include social media strategy, content calendars, graphic design, short-form video and reels production, caption writing, hashtag research, paid social advertising, and monthly performance reporting. Every campaign is tailored to your brand voice and audience to maximise reach and engagement."
   }
 ];
 

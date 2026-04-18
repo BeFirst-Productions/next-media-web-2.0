@@ -71,7 +71,7 @@ export default function BlogsPageContent() {
         {/* Grid Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-12 md:gap-y-20 lg:gap-x-16 xl:gap-x-24 items-start">
           {/* Featured Post */}
-          <div className="md:col-span-1 lg:col-span-6 lg:sticky lg:top-32">
+          <div className="md:col-span-1 lg:col-span-7 lg:sticky lg:top-32">
             <BlogItem 
               slug={featuredBlog.slug}
               title={featuredBlog.title} 
@@ -82,7 +82,7 @@ export default function BlogsPageContent() {
           </div>
 
           {/* List Posts - Using a grid on large screens to reduce image size */}
-          <div className="md:col-span-1 lg:col-span-6 grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10 lg:gap-y-12">
+          <div className="md:col-span-1 lg:col-span-5 grid grid-cols-1 gap-x-8 gap-y-10 lg:gap-y-12">
             {listBlogs.map((blog, idx) => (
               <div key={idx} className="">
                 <BlogItem 
