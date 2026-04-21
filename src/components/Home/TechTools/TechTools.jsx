@@ -427,7 +427,7 @@ export default function TechTools() {
               </SectionBadge>
 
               {/* Subtitle */}
-              <p className={`text-sm md:text-base leading-relaxed max-w-sm md:max-w-md transition-colors duration-700 ${isWhite ? 'text-black' : 'text-white'}`}>
+              <p className={`text-base md:text-2xl leading-relaxed max-w-sm md:max-w-md transition-colors duration-700 ${isWhite ? 'text-black' : 'text-white'}`}>
                 Our work is powered by innovative technology and smart tools designed for better performance and productivity.
               </p>
             </div>

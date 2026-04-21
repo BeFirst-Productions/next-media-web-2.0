@@ -34,8 +34,6 @@ const DetailCard = ({ badge, text, image, reverse = false }) => {
 };
 
 export default function AboutDetails() {
-  const dummyText = "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti nostra, per inceptos himenaeos.";
-  const dummyTextShort = "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. ";
 
   return (
     <section className="bg-white py-24 md:py-32 overflow-hidden">
@@ -71,7 +69,7 @@ export default function AboutDetails() {
           </div>
           <div className="relative aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 shadow-xl order-1 md:order-2">
             <Image 
-              src="/images/about/details_1.png" 
+              src="/images/about-us/about-us.jpeg" 
               alt="About Us"
               fill
               className="object-cover"
@@ -84,12 +82,12 @@ export default function AboutDetails() {
           <DetailCard 
             badge="Mission"
             text="We aim to provide intelligent, original, and measurable digital marketing solutions that facilitate business growth, help in building trust, and connecting with the audience. As one of the Best branding Agency Dubai, we deal with creating simple but highly effective strategies that increase brand visibility, promote interaction, and deliver measurable results. The digital experience that we create will have a significant impact on a business and help in its success over time even in a highly competitive market."
-            image="/images/about/mission.png"
+            image="/images/about-us/mission.jpeg"
           />
           <DetailCard 
             badge="Vision"
             text="We want to be among the creative agency in Dubai that are top-rated and at the same time recognized globally as a branding agency Dubai that besides beauty, attention-grabbing designs, and other aspects of creative branding also focuses on business growth. Our aspiration is to be the leaders in the digital marketing arena by delivering quality branding, orchestrating well-planned campaigns, and providing user-friendly digital solutions at the same time keeping marketing simple, effective, and business result-oriented for all types of businesses."
-            image="/images/about/vision.png"
+            image="/images/about-us/vision.jpeg"
           />
         </div>
       </Container>

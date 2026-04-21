@@ -39,7 +39,7 @@ export default async function ServiceDetailPage({ params }) {
       <ServiceSecondaryContent service={service} />
 
       {/* Why Choose Us Section */}
-      <WhyChooseUs />
+      <WhyChooseUs reasons={service.whyChooseReasons} />
       
     </div>
   );

@@ -22,6 +22,32 @@ export const servicesData = [
         content: "Our design-first approach to UI/UX focuses on creating intuitive, aesthetic digital interfaces that guide users smoothly through their journey while fulfilling your business objectives.",
         features: ["User Path Optimization", "Mobile-First Prototyping", "Aesthetic Interface Systems", "Accessibility Focused Layouts"]
       }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Distinctive Visuals",
+        description: "We don't just use templates. Every design is meticulously crafted from scratch to ensure your visual identity is completely unique and owned by your brand."
+      },
+      {
+        title: "Consistency Across Media",
+        description: "Our designs are built to scale flawlessly from tiny mobile screens to giant billboards, maintaining perfect visual harmony across all mediums."
+      },
+      {
+        title: "Rapid Prototyping",
+        description: "We iterate quickly through design concepts with you, ensuring the final product perfectly aligns with your vision and business goals."
+      },
+      {
+        title: "Psychology-Driven Choice",
+        description: "Every color, font, and layout decision is backed by design psychology to subconsciously influence your audience and drive engagement."
+      },
+      {
+        title: "Print & Digital Mastery",
+        description: "We understand the nuanced differences in designing for screens versus CMYK print, ensuring perfect delivery every time."
+      },
+      {
+        title: "Award-Winning Creatives",
+        description: "Our team continuously pushes boundaries, bringing international award-winning standards to your daily marketing materials."
+      }
     ]
   },
   {
@@ -46,6 +72,32 @@ export const servicesData = [
         name: "Event Videography",
         content: "Professional coverage of your corporate events, launches, and celebrations, capturing the key moments and emotions to create lasting digital legacies of your milestones.",
         features: ["Multi-Camera Setups", "Authentic Moment Capture", "Highlight Reel Creation", "Crystal Clear Audio Sync"]
+      }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Cinema-Grade Equipment",
+        description: "We utilize RED and ARRI cameras paired with premium prime lenses to ensure every frame looks like a high-budget Hollywood production."
+      },
+      {
+        title: "Masterful Storytelling",
+        description: "We focus on narrative arcs that evoke emotion. Our videos don't just look pretty; they connect deeply with your audience's core desires."
+      },
+      {
+        title: "Full-Service Production",
+        description: "From scripting and storyboarding to casting, shooting, and final color grade, we handle every aspect seamlessly in-house."
+      },
+      {
+        title: "Advanced Post-Production",
+        description: "Our editors employ advanced color grading, sound design, and VFX to polish your content to absolute perfection."
+      },
+      {
+        title: "Platform Scalability",
+        description: "We shoot with multi-platform delivery in mind, ensuring you get perfect 16:9, square, and vertical cuts from a single production."
+      },
+      {
+        title: "Agile Turnaround",
+        description: "We understand that digital trends move quickly. Our streamlined workflow delivers premium video content exactly when you need it."
       }
     ]
   },
@@ -72,6 +124,32 @@ export const servicesData = [
         content: "Strategic deployment of advertising budget across Meta, Google, and LinkedIn to ensure maximum return on investment through precision targeting and creative testing.",
         features: ["A/B Creative Testing", "Precision Retargeting Pixels", "ROAS Centric Reporting", "Cross-Platform Ad Scaling"]
       }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Data-Driven ROI",
+        description: "We don't rely on guesswork. Every campaign is meticulously tracked and optimized based on real-time performance data to maximize your budget."
+      },
+      {
+        title: "Trend Agility",
+        description: "The digital landscape shifts daily. We continuously pivot strategies to capitalize on emerging trends, ensuring you remain culturally relevant."
+      },
+      {
+        title: "Community Building",
+        description: "We don't just broadcast messages; we cultivate passionate communities around your brand that transform into vocal advocates."
+      },
+      {
+        title: "Omni-Channel Mastery",
+        description: "Our experts understand the unique algorithms and user psychologies of every platform, from LinkedIn B2B to TikTok viral hooks."
+      },
+      {
+        title: "Transparent Reporting",
+        description: "You'll never wonder what we're doing. We provide detailed, easy-to-understand dashboards showing exactly how our work drives growth."
+      },
+      {
+        title: "Hyper-Targeted Ads",
+        description: "We use advanced demographic and behavioral targeting to ensure your ad spend reaches exactly the people ready to convert."
+      }
     ]
   },
   {
@@ -96,6 +174,32 @@ export const servicesData = [
         name: "Advertising Imagery",
         content: "Hero imagery designed for large-scale marketing campaigns, billboards, and high-impact website banners that demand attention and project authority.",
         features: ["High-Resolution Raw Output", "Composite Creative Editing", "Commercial Usage Rights", "Strategic Key Visual Focus"]
+      }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Lighting Perfected",
+        description: "Photography is painting with light. Our studio setup ensures dramatic, flawless illumination that highlights the absolute best parts of your subjects."
+      },
+      {
+        title: "High-Resolution Detail",
+        description: "We deliver massive raw files perfect for billboard prints down to compressed web-ready versions, preserving every pixel of quality."
+      },
+      {
+        title: "Creative Direction",
+        description: "We direct the shoot—guiding models, styling products, and finding perfect angles so you don't have to worry about the creative process."
+      },
+      {
+        title: "Flawless Retouching",
+        description: "Our post-production magic removes blemishes, corrects color imbalances, and ensures your images look spectacular while remaining natural."
+      },
+      {
+        title: "Consistent Brand Styling",
+        description: "Every photo we take aligns perfectly with your overall brand aesthetic, ensuring visual continuity across all your materials."
+      },
+      {
+        title: "Fast Asset Delivery",
+        description: "Speed is crucial. We provide quick turnaround times for contact sheets and final edits so your marketing campaigns never delay."
       }
     ]
   },
@@ -122,6 +226,32 @@ export const servicesData = [
         content: "In-depth, high-value assets that demonstrate your industry thought leadership and capture high-quality leads through detailed research and analysis.",
         features: ["Original Data Analysis", "Case Study Developments", "Professional PDF Layouts", "Lead Generation Focus"]
       }
+    ],
+    whyChooseReasons: [
+      {
+        title: "SEO Integrated Writing",
+        description: "Every piece of content is backed by deep keyword research, ensuring you rank higher on Google while engaging human readers."
+      },
+      {
+        title: "Industry Authority",
+        description: "We don't write fluff. Our researchers dive deep into your niche to produce authoritative, insightful content that positions you as an expert."
+      },
+      {
+        title: "Conversion Copywriting",
+        description: "Our words do more than inform; they persuade. We embed psychological triggers to convert passive readers into active buyers."
+      },
+      {
+        title: "Omnichannel Syndication",
+        description: "A single article is transformed into social posts, email newsletters, and infographics to maximize the lifespan of every idea."
+      },
+      {
+        title: "Long-Term Traffic Gen",
+        description: "We build evergreen content architectures that continue to drive high-quality organic traffic for years after publication."
+      },
+      {
+        title: "Brand Voice Alignment",
+        description: "We adapt seamlessly to your tone. Whether corporate B2B or playful D2C, your content sounds authentically like your brand."
+      }
     ]
   },
   {
@@ -147,6 +277,32 @@ export const servicesData = [
         content: "High-converting online stores built on Shopify or custom platforms, optimized for fast checkout, secure payments, and easy product management for your team.",
         features: ["Secure Payment Gateways", "Inventory Management Tools", "Abandoned Cart Recovery", "High-Conversion Checkouts"]
       }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Blazing Fast Speeds",
+        description: "We build using Next.js and modern stacks, optimizing every asset to achieve perfect Lighthouse scores and zero loading lag for users."
+      },
+      {
+        title: "Immersive Interactions",
+        description: "We implement smooth, hardware-accelerated animations and micro-interactions that make your website feel incredibly premium and alive."
+      },
+      {
+        title: "Scalable Architecture",
+        description: "Our codebases are clean, modular, and built to grow. Whether 100 or 1,000,000 users, your platform remains stable and responsive."
+      },
+      {
+        title: "Bulletproof Security",
+        description: "We adhere strictly to modern web security standards, ensuring user data is heavily encrypted and protected against modern vulnerabilities."
+      },
+      {
+        title: "Seamless CMS Integraiton",
+        description: "We empower your team with intuitive content management systems, allowing non-technical staff to easily update the site in real-time."
+      },
+      {
+        title: "Accessibility First",
+        description: "We design inclusive digital experiences that meet strict WCAG standards, ensuring everyone can successfully navigate your platform."
+      }
     ]
   },
   {
@@ -171,6 +327,32 @@ export const servicesData = [
         name: "Visual Voice Definition",
         content: "Beyond just a logo, we define the entire mood and feel of your brand through color psychology, typography sets, and imagery guidelines that move emotions.",
         features: ["Moodboard Conceptions", "Custom Typographic Scale", "Emotional Color Palettes", "Texture & Pattern Systems"]
+      }
+    ],
+    whyChooseReasons: [
+      {
+        title: "Deep Purpose Alignment",
+        description: "We dig past visual aesthetics to uncover the true soul of your business, ensuring every branding choice accurately reflects your deepest values."
+      },
+      {
+        title: "Timeless Not Trendy",
+        description: "We avoid short-lived design fads. Your brand identity is engineered to look modern today and remain relevant for decades."
+      },
+      {
+        title: "Holistic Systems",
+        description: "We don't just deliver a logo; we hand over a comprehensive rulebook governing color, typography, imagery, and tone of voice."
+      },
+      {
+        title: "Emotional Resonance",
+        description: "We leverage psychological drivers to create marks and colors that subconsciously trigger the precise emotions you want from your consumers."
+      },
+      {
+        title: "Competitive Distinction",
+        description: "We conduct deep market analysis to guarantee your brand visually aggressively stands apart from every competitor in your sector."
+      },
+      {
+        title: "Enterprise Scalability",
+        description: "Our brand architectures are designed for growth, ready to gracefully accommodate new sub-brands, products, and global market expansions."
       }
     ]
   }

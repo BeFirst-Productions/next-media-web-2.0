@@ -15,8 +15,7 @@ export default function AboutPage() {
         title="We Are Your" 
         highlight="Creative" 
         titleSuffix="Digital Partner"
-        heroImage="/images/about/about_hero.png" 
-        altText="Our Creative Studio"
+        heroVideo="/video/about.mp4"
       />
       
       {/* About Details Section (White Background) */}

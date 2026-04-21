@@ -3,7 +3,7 @@
 import React from 'react';
 import Container from '../Common/Container/Container';
 
-const reasons = [
+const defaultReasons = [
   {
     title: "Expertise & Innovation",
     description: "We combine years of industry expertise with the latest technological innovations to deliver cutting-edge solutions for your business."
@@ -30,7 +30,7 @@ const reasons = [
   }
 ];
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ reasons = defaultReasons }) {
   return (
     <section className="bg-black py-10 md:py-20">
       <Container>
