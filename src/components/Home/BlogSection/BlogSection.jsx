@@ -36,8 +36,6 @@ export default function BlogSection() {
         targetProgress.current = 0;
       }
 
-      // Background transition logic: Sync with TechTools transition
-      // Turns white when the section is approximately 40% scrolled past its sticky point
       if (rect.bottom < windowHeight * 0.6) {
         setIsWhite(true);
       } else {
@@ -74,22 +72,29 @@ export default function BlogSection() {
     };
   }, []);
 
-
-
   const displayedItems = blogItems.slice(0, 4);
   const totalItems = displayedItems.length;
   const activeIndex = Math.min(Math.floor(smoothProgress * totalItems), totalItems - 1);
-  const currentItem = displayedItems[activeIndex];
+  const currentItem = displayedItems[activeIndex] || displayedItems[0]; // Fallback
 
-  const getRotationStyle = () => {
+  // Helper function to guarantee an image is always returned, looping if necessary
+  const getImage = (index) => {
+    const item = displayedItems[index % totalItems] || displayedItems[0]; 
+    return item?.homeImage || item?.image || '';
+  };
+
+const getRotationStyle = () => {
     if (isAutoRotating) return {};
+    
+    // Changed rotateX from -20deg to -10deg to reduce the downward tilt
+    const globalTilt = `rotateX(-10deg) rotateY(10deg)`;
 
     switch (activeIndex) {
-      case 0: return { transform: 'rotateX(0deg) rotateY(0deg)' };
-      case 1: return { transform: 'rotateX(0deg) rotateY(-90deg)' };
-      case 2: return { transform: 'rotateX(-90deg) rotateY(0deg)' };
-      case 3: return { transform: 'rotateX(90deg) rotateY(0deg)' };
-      default: return { transform: 'rotateX(0deg)' };
+      case 0: return { transform: `${globalTilt} rotateX(0deg) rotateY(0deg)` };
+      case 1: return { transform: `${globalTilt} rotateY(-90deg)` };
+      case 2: return { transform: `${globalTilt} rotateX(90deg)` };
+      case 3: return { transform: `${globalTilt} rotateX(-90deg)` };
+      default: return { transform: `${globalTilt}` };
     }
   };
 
@@ -100,7 +105,6 @@ export default function BlogSection() {
     >
       <div className={`sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden transition-colors duration-1000 ease-in-out ${isWhite ? 'bg-white' : 'bg-black'}`}>
 
-        {/* Blog Badge & Description */}
         <Container className="absolute top-16 left-0 right-0 z-50">
           <div className="flex flex-col items-start space-y-4">
             <SectionBadge className={`flex items-center gap-2 transition-all duration-700 ${isWhite ? '!text-black !border-black/20 !bg-black/5' : ''}`}>
@@ -116,25 +120,49 @@ export default function BlogSection() {
         <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-8 md:gap-0 pt-56 sm:pt-48 md:pt-40">
 
           {/* CUBE AREA */}
-          <div className="relative w-full md:w-1/2 flex items-center justify-center ">
+          <div className="relative w-full md:w-1/2 flex items-center justify-center">
             <div className="cube-wrapper">
               <div
                 className={`cube ${isAutoRotating ? 'auto-rotate' : ''}`}
                 style={getRotationStyle()}
               >
-                <div className="side front bg-black"><Image src={displayedItems[0].homeImage || displayedItems[0].image} alt="" fill className="object-cover" /></div>
-                <div className="side right bg-black"><Image src={displayedItems[1].homeImage || displayedItems[1].image} alt="" fill className="object-cover" /></div>
-                <div className="side bottom bg-black"><Image src={displayedItems[2].homeImage || displayedItems[2].image} alt="" fill className="object-cover" /></div>
-                <div className="side top bg-black"><Image src={displayedItems[3].homeImage || displayedItems[3].image} alt="" fill className="object-cover" /></div>
+                {/* 1. FRONT */}
+                <div className="side front">
+                    <Image src={getImage(0)} alt="Blog Front" fill className="object-cover object-[20%_center]" />
+                    <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 0 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
+                </div>
+                {/* 2. RIGHT */}
+                <div className="side right">
+                    <Image src={getImage(1)} alt="Blog Right" fill className="object-cover object-[20%_center]" />
+                    <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 1 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
+                </div>
+                {/* 3. BACK */}
+                <div className="side back">
+                    <Image src={getImage(2)} alt="Blog Back" fill className="object-cover object-[20%_center]" />
+                    <div className="absolute inset-0 bg-black/60" />
+                </div>
+                {/* 4. LEFT */}
+                <div className="side left">
+                    <Image src={getImage(3)} alt="Blog Left" fill className="object-cover object-[20%_center]" />
+                    <div className="absolute inset-0 bg-black/60" />
+                </div>
+                {/* 5. BOTTOM */}
+                <div className="side bottom">
+                    <Image src={getImage(2)} alt="Blog Bottom" fill className="object-cover object-[20%_center]" />
+                    <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 2 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
+                </div>
+                {/* 6. TOP */}
+                <div className="side top">
+                    <Image src={getImage(3)} alt="Blog Top" fill className="object-cover object-[20%_center]" />
+                    <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 3 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
+                </div>
               </div>
             </div>
-
-
           </div>
 
           {/* CONTENT AREA */}
           <div className="w-full md:w-1/2 xl:w-1/3 flex flex-col items-center md:items-start pl-0 md:pl-20 px-6 sm:px-0 text-center md:text-left">
-            <div key={activeIndex} className="flex flex-col items-center md:items-start animate-in fade-in slide-in-from-bottom-8 duration-1200 transition-all">
+            <div key={activeIndex} className="flex flex-col items-center md:items-start animate-in fade-in slide-in-from-bottom-8 duration-1000 transition-all">
               <h3 className={`text-2xl md:text-3xl 2xl:text-4xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase transition-colors duration-700 drop-shadow-2xl ${isWhite ? 'text-black' : 'text-white'}`}>
                 {currentItem.title}
               </h3>
@@ -152,71 +180,66 @@ export default function BlogSection() {
               </Link>
             </div>
           </div>
-
         </Container>
-
       </div>
 
       <style jsx>{`
         .cube-wrapper {
-          perspective: 1500px;
-          filter: drop-shadow(0px 30px 60px rgba(0, 163, 255, 0.2));
+          perspective: 2500px;
+          filter: drop-shadow(0px 50px 100px rgba(0, 180, 216, 0.25));
         }
 
         .cube {
-          width: clamp(150px, 40vw, 320px);
-          height: clamp(150px, 40vw, 320px);
+          width: clamp(200px, 45vw, 350px);
+          height: clamp(200px, 45vw, 350px);
           position: relative;
           transform-style: preserve-3d;
-          transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
           will-change: transform;
         }
 
         @media (min-width: 1536px) {
-          .cube {
-            width: 400px;
-            height: 400px;
-          }
+          .cube { width: 450px; height: 450px; }
         }
 
         .auto-rotate {
-          animation: rotate 18s infinite linear;
+          animation: rotate 20s infinite linear;
         }
 
         .side {
           position: absolute;
           width: 100%;
           height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid ${isWhite ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'};
-          background-color: ${isWhite ? '#fff' : '#000'};
-          backface-visibility: hidden;
-          transition: box-shadow 400ms ease, background-color 700ms ease, border-color 700ms ease;
+          border-radius: 0px;
+          overflow: hidden;
+          backface-visibility: visible;
+          border: 1.5px solid ${isWhite ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.15)'};
+          background-color: ${isWhite ? '#ffffff' : '#0a0a0a'};
+          box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
         }
 
-        .side:hover {
-          box-shadow: 0 0 40px rgba(0, 163, 255, 0.2);
-          border-color: rgba(0, 163, 255, 0.5);
-        }
-
-        /* Improved translateZ for better centering inside the warped perspective */
-        .front  { transform: rotateY(0deg) translateZ(clamp(75px, 20vw, 160px)); }
-        .bottom { transform: rotateX(-90deg) translateZ(clamp(75px, 20vw, 160px)); }
-        .top    { transform: rotateX(90deg) translateZ(clamp(75px, 20vw, 160px)); }
-        .right  { transform: rotateY(90deg) translateZ(clamp(75px, 20vw, 160px)); }
+        /* All 6 sides properly translated from the center */
+        .front  { transform: rotateY(0deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        .right  { transform: rotateY(90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        .back   { transform: rotateY(180deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        .left   { transform: rotateY(-90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        .bottom { transform: rotateX(-90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        .top    { transform: rotateX(90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
 
         @media (min-width: 1536px) {
-          .front  { transform: rotateY(0deg) translateZ(200px); }
-          .bottom { transform: rotateX(-90deg) translateZ(200px); }
-          .top    { transform: rotateX(90deg) translateZ(200px); }
-          .right  { transform: rotateY(90deg) translateZ(200px); }
+          .front  { transform: rotateY(0deg) translateZ(225px); }
+          .right  { transform: rotateY(90deg) translateZ(225px); }
+          .back   { transform: rotateY(180deg) translateZ(225px); }
+          .left   { transform: rotateY(-90deg) translateZ(225px); }
+          .bottom { transform: rotateX(-90deg) translateZ(225px); }
+          .top    { transform: rotateX(90deg) translateZ(225px); }
         }
 
+        /* Auto-rotate animation fixed to respect the isometric tilt */
+      /* Auto-rotate animation fixed to respect the new isometric tilt */
         @keyframes rotate {
-          from { transform: rotateY(0deg) rotateX(0deg); }
-          to { transform: rotateY(360deg) rotateX(360deg); }
+          from { transform: rotateX(-10deg) rotateY(10deg) rotateX(0deg) rotateY(0deg); }
+          to { transform: rotateX(-10deg) rotateY(10deg) rotateX(0deg) rotateY(360deg); }
         }
       `}</style>
     </section>

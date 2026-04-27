@@ -87,7 +87,7 @@ export default function AboutDetails() {
           <DetailCard 
             badge="Vision"
             text="We want to be among the creative agency in Dubai that are top-rated and at the same time recognized globally as a branding agency Dubai that besides beauty, attention-grabbing designs, and other aspects of creative branding also focuses on business growth. Our aspiration is to be the leaders in the digital marketing arena by delivering quality branding, orchestrating well-planned campaigns, and providing user-friendly digital solutions at the same time keeping marketing simple, effective, and business result-oriented for all types of businesses."
-            image="/images/about-us/vision.jpeg"
+            image="/images/about-us/vision.jpg"
           />
         </div>
       </Container>

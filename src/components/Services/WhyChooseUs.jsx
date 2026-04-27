@@ -30,7 +30,7 @@ const defaultReasons = [
   }
 ];
 
-export default function WhyChooseUs({ reasons = defaultReasons }) {
+export default function WhyChooseUs({ reasons = defaultReasons,introText }) {
   return (
     <section className="bg-black py-10 md:py-20">
       <Container>
@@ -43,7 +43,7 @@ export default function WhyChooseUs({ reasons = defaultReasons }) {
           </div>
           <div className="md:max-w-xl">
             <p className=" text-sm md:text-base leading-relaxed">
-              We are dedicated to providing the highest quality digital services that combine creativity, technology, and strategy to help your business thrive in the modern landscape. Our commitment to excellence drives everything we do.
+    {introText}
             </p>
           </div>
         </div>

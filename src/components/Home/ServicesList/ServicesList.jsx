@@ -28,10 +28,10 @@ export default function ServicesList() {
   const services = [
     { bold: "GRAPHIC", light: "DESIGN", image: "images/services/graphic-design.jpeg" },
     { bold: "VIDEO", light: "EDITING", image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600" },
-    { bold: "SOCIAL MEDIA &", light: "MARKETING", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600" },
-    { bold: "PHOTOGRAPHY", light: "SERVICES", image: "https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=600" },
-    { bold: "CONTENT", light: "MARKETING", image: "images/services/content-marketing.jpg" },
-    { bold: "WEB DESIGN &", light: "DEVELOPMENT", image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=600" },
+    { bold: "SOCIAL MEDIA &", light: "MARKETING", image: "images/services/digitalmarketing-agency-in-dubai.jpeg" },
+    { bold: "PHOTOGRAPHY", light: "SERVICES", image: "images/services/photography-services-in-dubai.jpg" },
+    { bold: "CONTENT", light: "MARKETING", image: "images/services/content-marketing-agency-in-dubai.jpg" },
+    { bold: "WEB DESIGN &", light: "DEVELOPMENT", image: "images/services/webdevelopment-company-in-dubai.jpg" },
     { bold: "BRANDING &", light: "IDENTITY", image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=600" },
   ];
 
