@@ -149,9 +149,9 @@ export default function HeroSection() {
                 zIndex: videoProgress > 0.7 ? 30 : 10
               }}
             >
-              <div className="absolute inset-0 flex items-center justify-center text-[#2bc5ee]/50 font-light tracking-widest text-sm md:text-base border border-[#2bc5ee]/20 m-4 rounded-none md:rounded-2xl border-dashed">
+              {/* <div className="absolute inset-0 flex items-center justify-center text-[#2bc5ee]/50 font-light tracking-widest text-sm md:text-base border border-[#2bc5ee]/20 m-4 rounded-none md:rounded-2xl border-dashed">
                 [ REPLACE WITH YOUR VIDEO ]
-              </div>
+              </div> */}
               <video
                 src="/video/herosection.mp4"
                 autoPlay
