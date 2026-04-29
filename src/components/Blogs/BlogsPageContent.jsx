@@ -61,10 +61,10 @@ export default function BlogsPageContent() {
             <h1 className="text-5xl sm:text-7xl md:text-[6.25rem] font-black tracking-tighter leading-[0.8] text-white uppercase">
               OUR
             </h1>
-            <h1 className="text-5xl sm:text-7xl md:text-[6.25rem] font-black tracking-tighter leading-[0.8] uppercase" 
+            <h2 className="text-5xl sm:text-7xl md:text-[6.25rem] font-black tracking-tighter leading-[0.8] uppercase" 
                 style={{ WebkitTextStroke: '2px rgba(255,255,255,0.4)', color: 'transparent' }}>
               INSIGHTS
-            </h1>
+            </h2>
           </div>
         </div>
 

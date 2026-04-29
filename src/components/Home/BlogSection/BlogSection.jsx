@@ -75,18 +75,15 @@ export default function BlogSection() {
   const displayedItems = blogItems.slice(0, 4);
   const totalItems = displayedItems.length;
   const activeIndex = Math.min(Math.floor(smoothProgress * totalItems), totalItems - 1);
-  const currentItem = displayedItems[activeIndex] || displayedItems[0]; // Fallback
+  const currentItem = displayedItems[activeIndex] || displayedItems[0];
 
-  // Helper function to guarantee an image is always returned, looping if necessary
   const getImage = (index) => {
     const item = displayedItems[index % totalItems] || displayedItems[0]; 
     return item?.homeImage || item?.image || '';
   };
 
-const getRotationStyle = () => {
+  const getRotationStyle = () => {
     if (isAutoRotating) return {};
-    
-    // Changed rotateX from -20deg to -10deg to reduce the downward tilt
     const globalTilt = `rotateX(-10deg) rotateY(10deg)`;
 
     switch (activeIndex) {
@@ -119,39 +116,32 @@ const getRotationStyle = () => {
 
         <Container className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-8 md:gap-0 pt-56 sm:pt-48 md:pt-40">
 
-          {/* CUBE AREA */}
           <div className="relative w-full md:w-1/2 flex items-center justify-center">
             <div className="cube-wrapper">
               <div
                 className={`cube ${isAutoRotating ? 'auto-rotate' : ''}`}
                 style={getRotationStyle()}
               >
-                {/* 1. FRONT */}
                 <div className="side front">
                     <Image src={getImage(0)} alt="Blog Front" fill className="object-cover object-[20%_center]" />
                     <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 0 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
                 </div>
-                {/* 2. RIGHT */}
                 <div className="side right">
                     <Image src={getImage(1)} alt="Blog Right" fill className="object-cover object-[20%_center]" />
                     <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 1 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
                 </div>
-                {/* 3. BACK */}
                 <div className="side back">
                     <Image src={getImage(2)} alt="Blog Back" fill className="object-cover object-[20%_center]" />
                     <div className="absolute inset-0 bg-black/60" />
                 </div>
-                {/* 4. LEFT */}
                 <div className="side left">
                     <Image src={getImage(3)} alt="Blog Left" fill className="object-cover object-[20%_center]" />
                     <div className="absolute inset-0 bg-black/60" />
                 </div>
-                {/* 5. BOTTOM */}
                 <div className="side bottom">
                     <Image src={getImage(2)} alt="Blog Bottom" fill className="object-cover object-[20%_center]" />
                     <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 2 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
                 </div>
-                {/* 6. TOP */}
                 <div className="side top">
                     <Image src={getImage(3)} alt="Blog Top" fill className="object-cover object-[20%_center]" />
                     <div className={`absolute inset-0 transition-opacity duration-700 ${activeIndex === 3 ? 'opacity-0' : 'opacity-60 bg-black'}`} />
@@ -160,7 +150,6 @@ const getRotationStyle = () => {
             </div>
           </div>
 
-          {/* CONTENT AREA */}
           <div className="w-full md:w-1/2 xl:w-1/3 flex flex-col items-center md:items-start pl-0 md:pl-20 px-6 sm:px-0 text-center md:text-left">
             <div key={activeIndex} className="flex flex-col items-center md:items-start animate-in fade-in slide-in-from-bottom-8 duration-1000 transition-all">
               <h3 className={`text-2xl md:text-3xl 2xl:text-4xl font-medium tracking-tighter mb-4 sm:mb-6 uppercase transition-colors duration-700 drop-shadow-2xl ${isWhite ? 'text-black' : 'text-white'}`}>
@@ -185,21 +174,29 @@ const getRotationStyle = () => {
 
       <style jsx>{`
         .cube-wrapper {
+          /* Variable for easier maintenance */
+          --cube-size: clamp(200px, 45vw, 350px);
           perspective: 2500px;
           filter: drop-shadow(0px 50px 100px rgba(0, 180, 216, 0.25));
         }
 
+        /* LG screen size reduction */
+        @media (min-width: 1024px) {
+          .cube-wrapper { --cube-size: 280px; }
+        }
+
+        /* XL/2XL screen size increase */
+        @media (min-width: 1536px) {
+          .cube-wrapper { --cube-size: 450px; }
+        }
+
         .cube {
-          width: clamp(200px, 45vw, 350px);
-          height: clamp(200px, 45vw, 350px);
+          width: var(--cube-size);
+          height: var(--cube-size);
           position: relative;
           transform-style: preserve-3d;
           transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
           will-change: transform;
-        }
-
-        @media (min-width: 1536px) {
-          .cube { width: 450px; height: 450px; }
         }
 
         .auto-rotate {
@@ -210,7 +207,6 @@ const getRotationStyle = () => {
           position: absolute;
           width: 100%;
           height: 100%;
-          border-radius: 0px;
           overflow: hidden;
           backface-visibility: visible;
           border: 1.5px solid ${isWhite ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.15)'};
@@ -218,25 +214,14 @@ const getRotationStyle = () => {
           box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
         }
 
-        /* All 6 sides properly translated from the center */
-        .front  { transform: rotateY(0deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
-        .right  { transform: rotateY(90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
-        .back   { transform: rotateY(180deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
-        .left   { transform: rotateY(-90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
-        .bottom { transform: rotateX(-90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
-        .top    { transform: rotateX(90deg) translateZ(calc(clamp(200px, 45vw, 350px) / 2)); }
+        /* Using calc to keep Z-translation tied to size */
+        .front  { transform: rotateY(0deg) translateZ(calc(var(--cube-size) / 2)); }
+        .right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2)); }
+        .left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .top    { transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2)); }
 
-        @media (min-width: 1536px) {
-          .front  { transform: rotateY(0deg) translateZ(225px); }
-          .right  { transform: rotateY(90deg) translateZ(225px); }
-          .back   { transform: rotateY(180deg) translateZ(225px); }
-          .left   { transform: rotateY(-90deg) translateZ(225px); }
-          .bottom { transform: rotateX(-90deg) translateZ(225px); }
-          .top    { transform: rotateX(90deg) translateZ(225px); }
-        }
-
-        /* Auto-rotate animation fixed to respect the isometric tilt */
-      /* Auto-rotate animation fixed to respect the new isometric tilt */
         @keyframes rotate {
           from { transform: rotateX(-10deg) rotateY(10deg) rotateX(0deg) rotateY(0deg); }
           to { transform: rotateX(-10deg) rotateY(10deg) rotateX(0deg) rotateY(360deg); }

@@ -31,7 +31,9 @@ export const metadata = {
     "Branding & Advertising Agency in Dubai",
     "digital marketing agency dubai",
     "social media marketing companies in dubai"
-  ]
+  ], alternates: {
+    canonical: "https://nextmedia.ae/",
+  },
 };
 
 export default function Home() {
@@ -50,5 +52,5 @@ export default function Home() {
       <FaqSection />
       <SocialMediaSection />
     </>
-  );
+  );  
 }

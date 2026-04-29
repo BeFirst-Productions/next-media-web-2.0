@@ -5,7 +5,7 @@ import Navbar from "../components/Common/Navbar/Navbar";
 import FloatingNavbar from "../components/Common/Navbar/FloatingNavbar";
 import Footer from "../components/Common/Footer/Footer";
 import ScrollToTop from "../components/Common/ScrollToTop/ScrollToTop";
-
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,11 +51,25 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} ${bdoGrotesk.variable} h-full antialiased`}
     >
+      
       <body className="min-h-full flex flex-col bg-black text-white" suppressHydrationWarning>
         <SmoothScroll>
           <Navbar />
           <main className="grow">
             {children}
+              <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-4BP1MP000H"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-4BP1MP000H');
+            `}
+          </Script>
           </main>
           <Footer />
           <FloatingNavbar />

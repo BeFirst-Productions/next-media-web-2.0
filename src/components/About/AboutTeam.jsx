@@ -40,7 +40,7 @@ const FounderItem = ({ name, description, image, reverse = false }) => {
   );
 };
 
-export default function AboutTeam() {
+export default function   AboutTeam() {
   const dummyText = "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.";
 
   const teamMembers = [
@@ -118,12 +118,12 @@ export default function AboutTeam() {
           <FounderItem 
             name="Mr. Rasheeq Abdurahiman"
             description="Founder of Next Media, Mr. Rasheeq is a passionate graphic designer and social media marketing specialist with a strong entrepreneurial spirit. A serial entrepreneur, he also leads successful ventures including Invest First, Befirst Enterprises, Befirst HR, and Be Your Brand. With his expertise in branding, marketing, and business strategy, Rasheeq brings vision and creativity to every project, driving Next Media's mission to redefine branding and digital experiences."
-            image="/images/about-us/rasheeq.jpg"
+            image="/images/about-us/Rasheeq.jpg"
           />
           <FounderItem 
             name="Mr. Mohammed Anas"
             description="Co-founder of Next Media, Mr. Mohammed Anas is a seasoned IT and networking specialist with a deep passion for digital marketing, media production, and web development. Having worked with several prestigious companies in Dubai, Anas combines his technical expertise with creative flair to deliver innovative solutions. His dedication to blending technology with creativity plays a key role in shaping Next Media into a full-fledged creative powerhouse."
-            image="/images/about-us/anas.jpg"
+            image="/images/about-us/Anas.jpg"
             reverse={true}
           />
         </div>

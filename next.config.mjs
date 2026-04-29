@@ -15,13 +15,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  
-  // Optional but recommended: 
-  // If you are using the <Image /> component, you must set unoptimized to true
-  // because the default Next.js image optimization requires a Node server.
+  trailingSlash: false, // Add this line
   images: {
     unoptimized: true,
   },
 };
+
 
 export default nextConfig;
