@@ -51,25 +51,25 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} ${bdoGrotesk.variable} h-full antialiased`}
     >
-      
+
       <body className="min-h-full flex flex-col bg-black text-white" suppressHydrationWarning>
         <SmoothScroll>
           <Navbar />
           <main className="grow">
             {children}
-              <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-4BP1MP000H"
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
+            <Script
+              src="https://www.googletagmanager.com/gtag/js?id=G-4BP1MP000H"
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
               gtag('config', 'G-4BP1MP000H');
             `}
-          </Script>
+            </Script>
           </main>
           <Footer />
           <FloatingNavbar />

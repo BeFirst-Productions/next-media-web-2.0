@@ -64,7 +64,7 @@ export default function WhyChooseUs({ reasons = defaultReasons,introText }) {
                   {reason.title}
                 </h3>
               </div>
-              <p className=" text-sm leading-relaxed">
+              <p className=" text-white text-sm leading-relaxed">
                 {reason.description}
               </p>
             </div>

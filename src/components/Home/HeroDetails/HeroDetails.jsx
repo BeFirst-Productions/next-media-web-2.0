@@ -40,7 +40,7 @@ export default function HeroDetails() {
           <div className="max-w-4xl">
             <h2 className="text-white text-3xl md:text-4xl 2xl:text-5xl font-light leading-tight tracking-tight">
               <span className="font-semibold">Best Branding Agency Dubai
-              </span>, <br />
+              </span> <br />
               <span className="font-semibold text-white">Design. Strategy. Brand Excellence.
               </span>
               <span className="inline-block ml-4 text-[#2bc5ee]">

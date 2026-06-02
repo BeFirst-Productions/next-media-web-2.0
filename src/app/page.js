@@ -32,7 +32,7 @@ export const metadata = {
     "digital marketing agency dubai",
     "social media marketing companies in dubai"
   ], alternates: {
-    canonical: "https://nextmedia.ae/",
+    canonical: "https://nextmedia.ae",
   },
 };
 

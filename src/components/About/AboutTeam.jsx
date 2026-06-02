@@ -32,7 +32,7 @@ const FounderItem = ({ name, description, image, reverse = false }) => {
           </h3>
           <div className="h-[2px] w-12 bg-[#00B4D8] origin-left group-hover:w-full transition-all duration-700"></div>
         </div>
-        <p className="text-lg md:text-xl leading-relaxed font-light font-sans max-w-xl">
+        <p className="text-white text-lg md:text-xl leading-relaxed font-light font-sans max-w-xl">
           {description}
         </p>
       </div>

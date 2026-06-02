@@ -116,7 +116,7 @@ export default function TermsContent() {
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 group-hover:text-[#00B4D8] transition-colors duration-300">
                   {section.title}
                 </h2>
-                <div className="text-lg leading-relaxed font-light">
+                <div className="text-white text-lg leading-relaxed font-light">
                   {section.content}
                 </div>
               </div>
